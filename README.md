@@ -12,3 +12,6 @@ This app gives quick and simple advice on how to prepare for the day based on di
 * Handling API calls from multiple sources
 * Weighting the user preferences to alter the advice algorithm
 * Translating the API responses into map visualizations
+
+## Jon Approval/Comments 3/17/23
+* Looks good!  Crush it!
