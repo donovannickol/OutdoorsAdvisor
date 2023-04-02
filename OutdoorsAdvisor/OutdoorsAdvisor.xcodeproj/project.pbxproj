@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		38410BAD29D28642008A6082 /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38410BAC29D28642008A6082 /* Preferences.swift */; };
+		38410BB229D28915008A6082 /* PreferenceSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38410BB129D28915008A6082 /* PreferenceSlider.swift */; };
 		38E058BA29CB48C900F5BC6F /* OutdoorsAdvisorApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38E058B929CB48C900F5BC6F /* OutdoorsAdvisorApp.swift */; };
 		38E058BC29CB48C900F5BC6F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38E058BB29CB48C900F5BC6F /* ContentView.swift */; };
 		38E058BE29CB48CA00F5BC6F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 38E058BD29CB48CA00F5BC6F /* Assets.xcassets */; };
@@ -14,6 +16,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		38410BAC29D28642008A6082 /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
+		38410BB129D28915008A6082 /* PreferenceSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferenceSlider.swift; sourceTree = "<group>"; };
 		38E058B629CB48C900F5BC6F /* OutdoorsAdvisor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OutdoorsAdvisor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		38E058B929CB48C900F5BC6F /* OutdoorsAdvisorApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutdoorsAdvisorApp.swift; sourceTree = "<group>"; };
 		38E058BB29CB48C900F5BC6F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -32,6 +36,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		38410BAE29D288A0008A6082 /* Features */ = {
+			isa = PBXGroup;
+			children = (
+				38410BAC29D28642008A6082 /* Preferences.swift */,
+				38410BB129D28915008A6082 /* PreferenceSlider.swift */,
+			);
+			path = Features;
+			sourceTree = "<group>";
+		};
 		38E058AD29CB48C900F5BC6F = {
 			isa = PBXGroup;
 			children = (
@@ -53,6 +66,7 @@
 			children = (
 				38E058B929CB48C900F5BC6F /* OutdoorsAdvisorApp.swift */,
 				38E058BB29CB48C900F5BC6F /* ContentView.swift */,
+				38410BAE29D288A0008A6082 /* Features */,
 				38E058BD29CB48CA00F5BC6F /* Assets.xcassets */,
 				38E058BF29CB48CA00F5BC6F /* Preview Content */,
 			);
@@ -139,6 +153,8 @@
 			files = (
 				38E058BC29CB48C900F5BC6F /* ContentView.swift in Sources */,
 				38E058BA29CB48C900F5BC6F /* OutdoorsAdvisorApp.swift in Sources */,
+				38410BAD29D28642008A6082 /* Preferences.swift in Sources */,
+				38410BB229D28915008A6082 /* PreferenceSlider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
