@@ -1,10 +1,3 @@
-//
-//  DetailView.swift
-//  OutdoorsAdvisor
-//
-//  Created by Akash Mullick on 4/2/23.
-//
-
 import SwiftUI
 
 struct Factor : Identifiable {
@@ -17,7 +10,8 @@ struct Factor : Identifiable {
 
 struct DetailView: View {
     // mock data for testing view, replace with API results later
-    var location: String
+    @EnvironmentObject var currentConditionsLoader: CurrentConditionsLoader
+    var city: City
     @State var progressValue: Float = 60
     var factors: [Factor] = [
         Factor(name: "Temperature", value: 50, total: 100),
@@ -28,8 +22,8 @@ struct DetailView: View {
     ]
     
     var body: some View {
-        VStack {
-            Text(location)
+        ScrollView {
+            Text(city.name)
                 .font(.title)
                 .bold()
             
@@ -42,7 +36,15 @@ struct DetailView: View {
                     FactorAmount(label: factor.name, value: factor.value, total: factor.total)
                 }
             }
-        }
+            switch currentConditionsLoader.state {
+            case .idle: Color.clear
+            case .loading: ProgressView()
+            case .failed(let error): Text("Error \(error.localizedDescription)")
+            case .success(let currentConditions):
+              WeatherDisplay(currentConditions: currentConditions, city: city)
+            }
+
+        }.task { await currentConditionsLoader.loadWeatherData(city: city) }
     }
     
 }
@@ -91,8 +93,44 @@ struct FactorAmount: View {
     }
 }
 
+struct WeatherDisplay: View {
+  let currentConditions: CurrentConditionsLoader.CurrentConditionsSummary
+  let city: City
+
+  var body: some View {
+    VStack {
+      Text(city.name).font(.largeTitle)
+      Text("Current Conditions".uppercased())
+        .font(.caption)
+      Text(currentConditions.description)
+      Text(currentTemperature(currentConditions))
+    }
+    .padding(20)
+  }
+
+  func currentConditions(_ weather: WeatherInfo) -> String {
+    weather.description
+  }
+
+  func currentTemperature(_ conditions: CurrentConditionsLoader.CurrentConditionsSummary) -> String {
+    let formattedTemp = NumberFormatting.temperature(conditions.temperature) ?? "n/a"
+    return "\(formattedTemp)°"
+  }
+}
+
+struct NumberFormatting {
+  static func temperature(_ temperature: Double) -> String? {
+    let formatter = NumberFormatter()
+    formatter.numberStyle = .none
+    let temp = NSNumber(value: temperature)
+    return formatter.string(from: temp)
+  }
+}
+
+
 struct DetailView_Previews: PreviewProvider {
     static var previews: some View {
-        DetailView(location: "Charlotte, NC")
+        DetailView(city: City.previewData[0]).environmentObject(ForecastLoader(apiClient: MockWeatherAPIClient()))
+            .environmentObject(CurrentConditionsLoader(apiClient: MockWeatherAPIClient()))
     }
 }

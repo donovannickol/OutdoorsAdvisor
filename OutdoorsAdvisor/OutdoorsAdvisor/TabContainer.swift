@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct TabContainer: View {
-  
+    @State var currentWeatherCity: City?
+
     var body: some View {
         TabView{
             NavigationView {
@@ -18,7 +19,7 @@ struct TabContainer: View {
               Label("Home", systemImage: "cloud.sun.rain")
             }
             NavigationView {
-                DetailView()
+                DetailView(city: City.previewData[0])
             }
             .tabItem {
             Label("Details", systemImage: "book")
