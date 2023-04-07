@@ -18,13 +18,13 @@ struct DetailView: View {
 //    @State var isDefaultLocation: Bool = false
     var city: City
     @State var progressValue: Float = 60
-    var factors: [Factor] = [
-        Factor(name: "Temperature", value: 50, total: 100),
-        Factor(name: "Air Quality", value: 43, total: 100),
-        Factor(name: "Pollen", value: 77, total: 100),
-        Factor(name: "UV", value: 12, total: 100),
-        Factor(name: "Precipitation", value: 37, total: 100)
-    ]
+//    var factors: [Factor] = [
+//        Factor(name: "Temperature", value: 50, total: 100),
+//        Factor(name: "Air Quality", value: 43, total: 500),
+//        Factor(name: "Pollen", value: 77, total: 100),
+//        Factor(name: "UV", value: 12, total: 11), // 11+ is considered extreme
+//        Factor(name: "Precipitation", value: 37, total: 100)
+//    ]
     
     var body: some View {
         VStack(alignment: .trailing) {
@@ -51,16 +51,18 @@ struct DetailView: View {
                         .frame(width: 150.0, height: 150.0)
                         .padding(40.0)
                     
-                    ForEach(factors, id: \.id) { factor in
-                        FactorAmount(label: factor.name, value: factor.value, total: factor.total)
-                    }
+//                    ForEach(factors, id: \.id) { factor in
+//                        FactorAmount(label: factor.name, value: factor.value, total: factor.total)
+//                    }
                 }
                 switch currentConditionsLoader.state {
                 case .idle: Color.clear
                 case .loading: ProgressView()
                 case .failed(let error): Text("Error \(error.localizedDescription)")
                 case .success(let currentConditions):
-                  WeatherDisplay(currentConditions: currentConditions, city: city)
+//                  WeatherDisplay(currentConditions: currentConditions, city: city)
+                    FactorAmount(label: "Temperature", value: currentConditions.temperature, total: 100)
+                    FactorAmount(label: "Precipitation", value: currentConditions.precipitation, total: 10)
                 }
 
             }.task { await currentConditionsLoader.loadWeatherData(city: city) }
@@ -97,6 +99,11 @@ struct ProgressBar: View {
     }
 }
 
+func percentToColorFactor(progress: Double) -> Color {
+    let scaled = CGFloat(progress) / 100.0
+    return Color(red: scaled, green: (1 - scaled), blue: 0.0)
+}
+
 struct FactorAmount: View {
     var label: String
     var value: Double
@@ -107,6 +114,7 @@ struct FactorAmount: View {
             Text("\(label):")
             ProgressView(value: value, total: total)
                 .scaleEffect(x: 1, y: 5, anchor: .center)
+                .accentColor(percentToColorFactor(progress: value / total * 100))
         }
         .padding(.horizontal, 20)
         .padding(.vertical, 10)

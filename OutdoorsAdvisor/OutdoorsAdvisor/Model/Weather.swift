@@ -8,6 +8,7 @@ public struct CurrentWeatherResponse: Decodable {
   var data: WeatherData
   var wind: Wind
   var clouds: Clouds
+  var rain: CurrRain
 
   // There are some keys like dt, sys, base, etc. that I don't want to deal with
   // So I will put just the keys I want here and rename some I like the least
@@ -18,12 +19,30 @@ public struct CurrentWeatherResponse: Decodable {
     case data = "main"
     case wind
     case clouds
+    case rain
   }
 
   static func mock() -> CurrentWeatherResponse {
-    CurrentWeatherResponse(coordinate: Coordinate(latitude: 0.0, longitude: 0.0), weathers: [WeatherInfo(id: 0, main: WeatherCondition.snow, description: "It's snowing", icon: "Snow")], name: "Snowing", data: WeatherData(temp: 32.0, humidity: 30, low: 20.0, high: 45.0), wind: Wind(speed: 5.0, deg: 6, gust: 10.0), clouds: Clouds(coverage: 50.0))
+      CurrentWeatherResponse(coordinate: Coordinate(latitude: 0.0, longitude: 0.0), weathers: [WeatherInfo(id: 0, main: WeatherCondition.snow, description: "It's snowing", icon: "Snow")], name: "Snowing", data: WeatherData(temp: 32.0, humidity: 30, low: 20.0, high: 45.0), wind: Wind(speed: 5.0, deg: 6, gust: 10.0), clouds: Clouds(coverage: 50.0), rain: CurrRain(oneHour: 5))
   }
 }
+
+//extension CurrentWeatherResponse {
+//
+//    public init(from decoder: Decoder) throws {
+//        let values = try decoder.container(keyedBy: CodingKeys.self)
+//
+//        self.coordinate = try values.decode(Coordinate.self, forKey: .coordinate)
+//        self.weathers = try values.decode([WeatherInfo].self, forKey: .weathers)
+//        self.name = try values.decode(String.self, forKey: .name)
+//        self.data = try values.decode(WeatherData.self, forKey: .data)
+//        self.wind = try values.decode(Wind.self, forKey: .wind)
+//        self.clouds = try values.decode(Clouds.self, forKey: .clouds)
+//
+//        let rainContainer = try? values.nestedContainer(keyedBy: CurrRain.CodingKeys.self, forKey: .rain)
+//        self.rain = try rainContainer?.decode(CurrRain.self, forKey: .oneHour) ?? CurrRain(oneHour: 0.0)
+//    }
+//}
 
 // I'm fine to decode all the keys, so this one is pretty simple.
 // In reality, I'd want to rename 'main' to 'condition' but left as-is as an example
@@ -53,6 +72,14 @@ public struct Wind: Decodable, Hashable {
   var speed: Double
   var deg: Int
   var gust: Double?
+}
+
+public struct CurrRain: Decodable, Hashable {
+    var oneHour: Double
+    
+    public enum CodingKeys: String, CodingKey {
+        case oneHour = "1h"
+    }
 }
 
 public struct Clouds: Decodable, Hashable {

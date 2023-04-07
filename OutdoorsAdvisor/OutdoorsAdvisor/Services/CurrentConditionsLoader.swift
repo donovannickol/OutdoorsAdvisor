@@ -14,6 +14,7 @@ class CurrentConditionsLoader: ObservableObject {
   struct CurrentConditionsSummary {
     var description: String
     var temperature: Double
+    var precipitation: Double
   }
 
   enum DataError: Error {
@@ -31,7 +32,7 @@ class CurrentConditionsLoader: ObservableObject {
     do {
       let response: CurrentWeatherResponse = try await apiClient.fetchCurrent(coordinate: city.coordinate)
       if let weather = response.weathers.first {
-        let conditionsSummary = CurrentConditionsSummary(description: weather.description, temperature: response.data.temp)
+          let conditionsSummary = CurrentConditionsSummary(description: weather.description, temperature: response.data.temp, precipitation: response.rain.oneHour)
         self.state = .success(data: conditionsSummary)
       } else {
         self.state = .failed(error: DataError.noWeather)
