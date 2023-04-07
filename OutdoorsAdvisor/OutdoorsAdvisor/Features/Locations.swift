@@ -1,7 +1,10 @@
 import SwiftUI
 
 struct Locations: View {
-    @EnvironmentObject var datastore: DataStore
+    @EnvironmentObject var dataStore: DataStore
+    @StateObject var forecastLoader = ForecastLoader(apiClient: WeatherAPIClient())
+    @StateObject var currentConditionsLoader = CurrentConditionsLoader(apiClient: WeatherAPIClient())
+    
     @State private var searchText = ""
     @State private var newLocationName = ""
     
@@ -10,9 +13,9 @@ struct Locations: View {
     
     var filteredLocations: [City] {
         if searchText.isEmpty {
-            return datastore.cities.sorted { $0.name < $1.name }
+            return dataStore.cities.sorted { $0.name < $1.name }
         } else {
-            return datastore.cities.filter { $0.name.lowercased().contains(searchText.lowercased())
+            return dataStore.cities.filter { $0.name.lowercased().contains(searchText.lowercased())
             }.sorted { $0.name < $1.name }
         }
     }
@@ -36,7 +39,8 @@ struct Locations: View {
                 SearchBar(text: $searchText)
                     .padding(.horizontal)
                 List(filteredLocations) { location in
-                    NavigationLink(destination: DetailView(city: location)) {
+                    NavigationLink(destination: DetailView(city: location).environmentObject(forecastLoader)
+                        .environmentObject(currentConditionsLoader)) {
                         LocationItem(location: location, value: 60)
                     }
                 }

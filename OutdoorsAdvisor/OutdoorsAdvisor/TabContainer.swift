@@ -1,11 +1,14 @@
 import SwiftUI
 
 struct TabContainer: View {
-    @StateObject var dataStore = DataStore()
+    @EnvironmentObject var dataStore: DataStore
     @StateObject var forecastLoader = ForecastLoader(apiClient: WeatherAPIClient())
     @StateObject var currentConditionsLoader = CurrentConditionsLoader(apiClient: WeatherAPIClient())
     
     @State var currentWeatherCity: City?
+    
+    @Environment(\.scenePhase) private var scenePhase
+    let saveAction: () -> Void
     
     var body: some View {
         TabView{
@@ -33,6 +36,7 @@ struct TabContainer: View {
             }
             NavigationView {
                 Locations()
+                    .environmentObject(dataStore)
             }
             .tabItem {
                 Label("Locations", systemImage: "list.star")
@@ -45,12 +49,15 @@ struct TabContainer: View {
                 Label("Preferences", systemImage: "gearshape")
             }
         }
+        .onChange(of: scenePhase) { phase in
+            if phase == .inactive { saveAction() }
+        }
     }
 }
 
 struct TabContainer_Previews: PreviewProvider {
     static var previews: some View {
-        TabContainer()
+        TabContainer() {}
     }
 }
 

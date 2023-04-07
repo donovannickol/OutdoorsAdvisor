@@ -12,6 +12,8 @@
 		38B22D2029DF957A00721751 /* DataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38B22D1F29DF957A00721751 /* DataStore.swift */; };
 		38B22D2229DF95E900721751 /* SliderItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38B22D2129DF95E900721751 /* SliderItem.swift */; };
 		38B22D2629DFBC2200721751 /* CityForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38B22D2529DFBC2200721751 /* CityForm.swift */; };
+		38B22D2829DFC35B00721751 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38B22D2729DFC35B00721751 /* Extensions.swift */; };
+		38B22D2A29DFC36A00721751 /* CLLocationCoordinate2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38B22D2929DFC36A00721751 /* CLLocationCoordinate2D.swift */; };
 		38E058BA29CB48C900F5BC6F /* OutdoorsAdvisorApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38E058B929CB48C900F5BC6F /* OutdoorsAdvisorApp.swift */; };
 		38E058BE29CB48CA00F5BC6F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 38E058BD29CB48CA00F5BC6F /* Assets.xcassets */; };
 		38E058C129CB48CA00F5BC6F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 38E058C029CB48CA00F5BC6F /* Preview Assets.xcassets */; };
@@ -33,6 +35,8 @@
 		38B22D1F29DF957A00721751 /* DataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStore.swift; sourceTree = "<group>"; };
 		38B22D2129DF95E900721751 /* SliderItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SliderItem.swift; sourceTree = "<group>"; };
 		38B22D2529DFBC2200721751 /* CityForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityForm.swift; sourceTree = "<group>"; };
+		38B22D2729DFC35B00721751 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		38B22D2929DFC36A00721751 /* CLLocationCoordinate2D.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLLocationCoordinate2D.swift; sourceTree = "<group>"; };
 		38E058B629CB48C900F5BC6F /* OutdoorsAdvisor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OutdoorsAdvisor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		38E058B929CB48C900F5BC6F /* OutdoorsAdvisorApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutdoorsAdvisorApp.swift; sourceTree = "<group>"; };
 		38E058BD29CB48CA00F5BC6F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -99,6 +103,8 @@
 				38E058BD29CB48CA00F5BC6F /* Assets.xcassets */,
 				38E058BF29CB48CA00F5BC6F /* Preview Content */,
 				38B22D1F29DF957A00721751 /* DataStore.swift */,
+				38B22D2729DFC35B00721751 /* Extensions.swift */,
+				38B22D2929DFC36A00721751 /* CLLocationCoordinate2D.swift */,
 			);
 			path = OutdoorsAdvisor;
 			sourceTree = "<group>";
@@ -230,9 +236,11 @@
 				3F21AE3B29DDF47900DF9626 /* OpenWeatherEndpoint.swift in Sources */,
 				38B22D2029DF957A00721751 /* DataStore.swift in Sources */,
 				38F2E53129DA082900DC0783 /* Locations.swift in Sources */,
+				38B22D2A29DFC36A00721751 /* CLLocationCoordinate2D.swift in Sources */,
 				38E058BA29CB48C900F5BC6F /* OutdoorsAdvisorApp.swift in Sources */,
 				38410BAD29D28642008A6082 /* Preferences.swift in Sources */,
 				38F2E52D29D9F71900DC0783 /* DetailView.swift in Sources */,
+				38B22D2829DFC35B00721751 /* Extensions.swift in Sources */,
 				3F21AE4E29DE020500DF9626 /* City.swift in Sources */,
 				3F21AE4329DDFAFF00DF9626 /* APIClient.swift in Sources */,
 			);
