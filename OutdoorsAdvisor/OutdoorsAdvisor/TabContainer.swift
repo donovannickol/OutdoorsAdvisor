@@ -6,49 +6,51 @@ struct TabContainer: View {
     @StateObject var currentConditionsLoader = CurrentConditionsLoader(apiClient: WeatherAPIClient())
     
     @State var currentWeatherCity: City?
-
+    
     var body: some View {
         TabView{
             NavigationView {
-              //Home
-            }
-            .tabItem {
-              Label("Home", systemImage: "cloud.sun.rain")
-            }
-            NavigationView {
-                DetailView(city: City.previewData[0])
+                DetailView(city: City.getCityById(UserDefaults.standard.string(forKey: "defaultLocation") ?? "") ?? City.previewData[0])
                     .environmentObject(forecastLoader)
                     .environmentObject(currentConditionsLoader)
             }
             .tabItem {
-            Label("Details", systemImage: "book")
+                Label("Home", systemImage: "cloud.sun.rain")
             }
+//            NavigationView {
+//                DetailView(city: City.previewData[0])
+//                    .environmentObject(forecastLoader)
+//                    .environmentObject(currentConditionsLoader)
+//            }
+//            .tabItem {
+//                Label("Details", systemImage: "book")
+//            }
             NavigationView {
-              //Map
+                //Map
             }
             .tabItem {
-              Label("Map", systemImage: "map")
+                Label("Map", systemImage: "map")
             }
             NavigationView {
                 Locations()
             }
             .tabItem {
-            Label("Locations", systemImage: "list.star")
+                Label("Locations", systemImage: "list.star")
             }
             NavigationView {
                 Preferences()
                     .environmentObject(dataStore)
             }
             .tabItem {
-            Label("Preferences", systemImage: "gearshape")
+                Label("Preferences", systemImage: "gearshape")
             }
         }
     }
 }
 
 struct TabContainer_Previews: PreviewProvider {
-  static var previews: some View {
-    TabContainer()
-  }
+    static var previews: some View {
+        TabContainer()
+    }
 }
 

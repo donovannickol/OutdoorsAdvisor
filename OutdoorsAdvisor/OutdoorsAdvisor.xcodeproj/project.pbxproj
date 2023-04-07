@@ -11,6 +11,7 @@
 		38410BAD29D28642008A6082 /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38410BAC29D28642008A6082 /* Preferences.swift */; };
 		38B22D2029DF957A00721751 /* DataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38B22D1F29DF957A00721751 /* DataStore.swift */; };
 		38B22D2229DF95E900721751 /* SliderItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38B22D2129DF95E900721751 /* SliderItem.swift */; };
+		38B22D2629DFBC2200721751 /* CityForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38B22D2529DFBC2200721751 /* CityForm.swift */; };
 		38E058BA29CB48C900F5BC6F /* OutdoorsAdvisorApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38E058B929CB48C900F5BC6F /* OutdoorsAdvisorApp.swift */; };
 		38E058BE29CB48CA00F5BC6F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 38E058BD29CB48CA00F5BC6F /* Assets.xcassets */; };
 		38E058C129CB48CA00F5BC6F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 38E058C029CB48CA00F5BC6F /* Preview Assets.xcassets */; };
@@ -31,6 +32,7 @@
 		38410BAC29D28642008A6082 /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
 		38B22D1F29DF957A00721751 /* DataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStore.swift; sourceTree = "<group>"; };
 		38B22D2129DF95E900721751 /* SliderItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SliderItem.swift; sourceTree = "<group>"; };
+		38B22D2529DFBC2200721751 /* CityForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityForm.swift; sourceTree = "<group>"; };
 		38E058B629CB48C900F5BC6F /* OutdoorsAdvisor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OutdoorsAdvisor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		38E058B929CB48C900F5BC6F /* OutdoorsAdvisorApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutdoorsAdvisorApp.swift; sourceTree = "<group>"; };
 		38E058BD29CB48CA00F5BC6F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -64,6 +66,7 @@
 				38410BAC29D28642008A6082 /* Preferences.swift */,
 				38F2E52C29D9F71900DC0783 /* DetailView.swift */,
 				38F2E53029DA082900DC0783 /* Locations.swift */,
+				38B22D2529DFBC2200721751 /* CityForm.swift */,
 			);
 			path = Features;
 			sourceTree = "<group>";
@@ -222,6 +225,7 @@
 				3F21AE3D29DDF7F400DF9626 /* OpenWeatherAPIClient.swift in Sources */,
 				35B42E0029DA6D26002639BE /* TabContainer.swift in Sources */,
 				3F21AE4C29DDFCF300DF9626 /* CurrentConditionsLoader.swift in Sources */,
+				38B22D2629DFBC2200721751 /* CityForm.swift in Sources */,
 				3F21AE4629DDFB2000DF9626 /* APIError.swift in Sources */,
 				3F21AE3B29DDF47900DF9626 /* OpenWeatherEndpoint.swift in Sources */,
 				38B22D2029DF957A00721751 /* DataStore.swift in Sources */,

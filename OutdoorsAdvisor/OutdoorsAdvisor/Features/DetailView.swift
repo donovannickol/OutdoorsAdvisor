@@ -11,6 +11,11 @@ struct Factor : Identifiable {
 struct DetailView: View {
     // mock data for testing view, replace with API results later
     @EnvironmentObject var currentConditionsLoader: CurrentConditionsLoader
+    var defaultLocation = UserDefaults.standard.string(forKey: "defaultLocation")
+    var isDefaultLocation: Bool {
+        defaultLocation == city.id
+    }
+//    @State var isDefaultLocation: Bool = false
     var city: City
     @State var progressValue: Float = 60
     var factors: [Factor] = [
@@ -22,32 +27,47 @@ struct DetailView: View {
     ]
     
     var body: some View {
-        ScrollView {
-            Text(city.name)
-                .font(.title)
-                .bold()
+        VStack(alignment: .trailing) {
+            Button(action: {
+                UserDefaults.standard.set(city.id, forKey: "defaultLocation")
+            }) {
+                Text(self.isDefaultLocation ? "Default Location" : "Set Default")
+                    .padding(.horizontal, 10)
+                    .padding(.vertical, 5)
+                    .background(self.isDefaultLocation ? Color.green : Color.blue)
+                    .foregroundColor(Color.white)
+                    .cornerRadius(5)
+            }
+            .padding(.top, 20)
+            .padding(.trailing, 20)
             
-            VStack {
-                ProgressBar(progress: self.$progressValue)
-                    .frame(width: 150.0, height: 150.0)
-                    .padding(40.0)
+            ScrollView {
+                Text(city.name)
+                    .font(.title)
+                    .bold()
                 
-                ForEach(factors, id: \.id) { factor in
-                    FactorAmount(label: factor.name, value: factor.value, total: factor.total)
+                VStack {
+                    ProgressBar(progress: self.$progressValue)
+                        .frame(width: 150.0, height: 150.0)
+                        .padding(40.0)
+                    
+                    ForEach(factors, id: \.id) { factor in
+                        FactorAmount(label: factor.name, value: factor.value, total: factor.total)
+                    }
                 }
-            }
-            switch currentConditionsLoader.state {
-            case .idle: Color.clear
-            case .loading: ProgressView()
-            case .failed(let error): Text("Error \(error.localizedDescription)")
-            case .success(let currentConditions):
-              WeatherDisplay(currentConditions: currentConditions, city: city)
-            }
+                switch currentConditionsLoader.state {
+                case .idle: Color.clear
+                case .loading: ProgressView()
+                case .failed(let error): Text("Error \(error.localizedDescription)")
+                case .success(let currentConditions):
+                  WeatherDisplay(currentConditions: currentConditions, city: city)
+                }
 
-        }.task { await currentConditionsLoader.loadWeatherData(city: city) }
+            }.task { await currentConditionsLoader.loadWeatherData(city: city) }
+        }
     }
-    
 }
+
 
 struct ProgressBar: View {
     @Binding var progress: Float

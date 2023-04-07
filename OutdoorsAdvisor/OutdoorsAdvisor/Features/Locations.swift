@@ -1,21 +1,24 @@
 import SwiftUI
 
 struct Locations: View {
+    @EnvironmentObject var datastore: DataStore
     @State private var searchText = ""
-    @State private var isShowingAddSheet = false
     @State private var newLocationName = ""
-    @State private var locations = City.previewData.sorted { $0.name < $1.name }
+    
+    @State var isPresentingCityForm: Bool = false
+    @State var newCityFormData = City.FormData()
     
     var filteredLocations: [City] {
         if searchText.isEmpty {
-            return locations
+            return datastore.cities.sorted { $0.name < $1.name }
         } else {
-            return locations.filter { $0.name.lowercased().contains(searchText.lowercased()) }
+            return datastore.cities.filter { $0.name.lowercased().contains(searchText.lowercased())
+            }.sorted { $0.name < $1.name }
         }
     }
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             VStack(alignment: .leading) {
                 HStack {
                     Text("Locations")
@@ -23,7 +26,7 @@ struct Locations: View {
                         .fontWeight(.bold)
                     Spacer()
                     Button(action: {
-                        self.isShowingAddSheet = true
+                        self.isPresentingCityForm = true
                     }) {
                         Image(systemName: "plus")
                             .font(.title)
@@ -39,32 +42,9 @@ struct Locations: View {
                 }
                 .listStyle(.insetGrouped)
             }
-            .sheet(isPresented: $isShowingAddSheet, content: {
-                VStack {
-                    HStack {
-                        Button("Cancel") {
-                            self.isShowingAddSheet = false
-                        }
-                        Spacer()
-//                        Button("Add") {
-//                            self.locations.append(self.newLocationName)
-//                            self.newLocationName = ""
-//                            self.isShowingAddSheet = false
-//                        }
-                    }
-                    .padding(.horizontal)
-                    .padding(.top, 16)
-                    
-                    TextField("Location Name", text: self.$newLocationName)
-                        .padding()
-                        .background(Color(.systemGray6))
-                        .cornerRadius(8)
-                        .padding(.horizontal)
-                    
-                    Spacer()
-                }
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-            })
+            .sheet(isPresented: $isPresentingCityForm) {
+                NewCityForm(isPresentingCityForm: $isPresentingCityForm, newCityFormData: $newCityFormData)
+            }
         }
     }
 }
@@ -95,6 +75,10 @@ struct LocationItem: View {
             Text(location.name)
                 .font(.headline)
                 .padding(.leading)
+            if location.id == UserDefaults.standard.string(forKey: "defaultLocation") {
+                Image(systemName: "star.fill")
+                    .foregroundColor(.yellow)
+            }
             Spacer()
             Text(String(format: "%.0f%%", value))
                 .font(.headline)
@@ -107,5 +91,6 @@ struct LocationItem: View {
 struct Locations_Previews: PreviewProvider {
     static var previews: some View {
         Locations()
+            .environmentObject(DataStore())
     }
 }
