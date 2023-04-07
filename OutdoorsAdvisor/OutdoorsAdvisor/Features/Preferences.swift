@@ -1,30 +1,7 @@
-//
-//  Preferences.swift
-//  OutdoorsAdvisor
-//
-//  Created by Akash Mullick on 3/27/23.
-//
-
 import SwiftUI
 
-struct SliderItem : Identifiable {
-    var id = UUID()
-    var sliderName: String
-    var sliderValue: Double
-}
-
-class Sliders: ObservableObject {
-    @Published var sliders: [SliderItem] = [
-        .init(sliderName: "Pollen", sliderValue: 0),
-        .init(sliderName: "Air Quality", sliderValue: 0),
-        .init(sliderName: "Precipitation", sliderValue: 0),
-        .init(sliderName: "Temperature", sliderValue: 0),
-        .init(sliderName: "UV", sliderValue: 0)
-    ]
-}
-
 struct Preferences: View {
-    @StateObject var model = Sliders()
+    @EnvironmentObject var dataStore: DataStore
     
     var body: some View {
         VStack {
@@ -33,18 +10,30 @@ struct Preferences: View {
                     Text("Preferences")
                         .font(.title)
                         .bold()
-                    Text("0 indicates no preference, 100 indicates high sensitivity pizza")
+                    Text("0 indicates no preference, 100 indicates high sensitivity")
                         .font(.subheadline)
                         .multilineTextAlignment(.center)
                 }.padding(.bottom, 50)
             }
             
-            ForEach($model.sliders, id: \.id) { $slider in
+            ForEach($dataStore.preferences, id: \.id) { $slider in
                 PreferenceSlider(sliderValue: $slider.sliderValue, sliderLabel: slider.sliderName)
+                    .onChange(of: slider.sliderValue) { newValue in
+                        UserDefaults.standard.setValue(newValue, forKey: slider.sliderName)
+                    }
+            }
+        }
+        .onAppear {
+            // Load preferences from UserDefaults
+            for i in 0..<dataStore.preferences.count {
+                if let value = UserDefaults.standard.value(forKey: dataStore.preferences[i].sliderName) as? Double {
+                    dataStore.preferences[i].sliderValue = value
+                }
             }
         }
     }
 }
+
 
 struct PreferenceSlider: View {
     @Binding var sliderValue: Double
@@ -52,7 +41,7 @@ struct PreferenceSlider: View {
     var body: some View {
         VStack {
             Text(sliderLabel)
-                .padding(.bottom, -25)
+                .padding(.bottom, -10)
             Slider(value: $sliderValue, in: 0...100) {
                 Text("Slider")
             } minimumValueLabel: {
@@ -62,7 +51,7 @@ struct PreferenceSlider: View {
             }
             Text("\(sliderValue, specifier: "%.0f")")
                 .frame(width: 50)
-                .padding(-25)
+                .padding(-15)
         }.padding()
     }
 }
@@ -70,5 +59,6 @@ struct PreferenceSlider: View {
 struct Preferences_Previews: PreviewProvider {
     static var previews: some View {
         Preferences()
+            .environmentObject(DataStore())
     }
 }

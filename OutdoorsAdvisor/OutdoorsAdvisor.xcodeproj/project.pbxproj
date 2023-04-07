@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		35B42E0029DA6D26002639BE /* TabContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35B42DFF29DA6D26002639BE /* TabContainer.swift */; };
 		38410BAD29D28642008A6082 /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38410BAC29D28642008A6082 /* Preferences.swift */; };
+		38B22D2029DF957A00721751 /* DataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38B22D1F29DF957A00721751 /* DataStore.swift */; };
+		38B22D2229DF95E900721751 /* SliderItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38B22D2129DF95E900721751 /* SliderItem.swift */; };
 		38E058BA29CB48C900F5BC6F /* OutdoorsAdvisorApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38E058B929CB48C900F5BC6F /* OutdoorsAdvisorApp.swift */; };
 		38E058BE29CB48CA00F5BC6F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 38E058BD29CB48CA00F5BC6F /* Assets.xcassets */; };
 		38E058C129CB48CA00F5BC6F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 38E058C029CB48CA00F5BC6F /* Preview Assets.xcassets */; };
@@ -27,6 +29,8 @@
 /* Begin PBXFileReference section */
 		35B42DFF29DA6D26002639BE /* TabContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabContainer.swift; sourceTree = "<group>"; };
 		38410BAC29D28642008A6082 /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
+		38B22D1F29DF957A00721751 /* DataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStore.swift; sourceTree = "<group>"; };
+		38B22D2129DF95E900721751 /* SliderItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SliderItem.swift; sourceTree = "<group>"; };
 		38E058B629CB48C900F5BC6F /* OutdoorsAdvisor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OutdoorsAdvisor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		38E058B929CB48C900F5BC6F /* OutdoorsAdvisorApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutdoorsAdvisorApp.swift; sourceTree = "<group>"; };
 		38E058BD29CB48CA00F5BC6F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -91,6 +95,7 @@
 				38410BAE29D288A0008A6082 /* Features */,
 				38E058BD29CB48CA00F5BC6F /* Assets.xcassets */,
 				38E058BF29CB48CA00F5BC6F /* Preview Content */,
+				38B22D1F29DF957A00721751 /* DataStore.swift */,
 			);
 			path = OutdoorsAdvisor;
 			sourceTree = "<group>";
@@ -118,6 +123,7 @@
 			children = (
 				3F21AE3F29DDF85A00DF9626 /* Weather.swift */,
 				3F21AE4D29DE020500DF9626 /* City.swift */,
+				38B22D2129DF95E900721751 /* SliderItem.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -212,11 +218,13 @@
 			files = (
 				3F21AE4029DDF85A00DF9626 /* Weather.swift in Sources */,
 				3F21AE4A29DDFCD100DF9626 /* ForecastLoader.swift in Sources */,
+				38B22D2229DF95E900721751 /* SliderItem.swift in Sources */,
 				3F21AE3D29DDF7F400DF9626 /* OpenWeatherAPIClient.swift in Sources */,
 				35B42E0029DA6D26002639BE /* TabContainer.swift in Sources */,
 				3F21AE4C29DDFCF300DF9626 /* CurrentConditionsLoader.swift in Sources */,
 				3F21AE4629DDFB2000DF9626 /* APIError.swift in Sources */,
 				3F21AE3B29DDF47900DF9626 /* OpenWeatherEndpoint.swift in Sources */,
+				38B22D2029DF957A00721751 /* DataStore.swift in Sources */,
 				38F2E53129DA082900DC0783 /* Locations.swift in Sources */,
 				38E058BA29CB48C900F5BC6F /* OutdoorsAdvisorApp.swift in Sources */,
 				38410BAD29D28642008A6082 /* Preferences.swift in Sources */,

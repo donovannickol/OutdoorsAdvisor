@@ -1,10 +1,3 @@
-//
-//  Locations.swift
-//  OutdoorsAdvisor
-//
-//  Created by Akash Mullick on 4/2/23.
-//
-
 import SwiftUI
 
 struct Locations: View {

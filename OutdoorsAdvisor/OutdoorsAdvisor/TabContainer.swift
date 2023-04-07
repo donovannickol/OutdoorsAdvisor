@@ -1,13 +1,10 @@
-//
-//  TabContainer.swift
-//  OutdoorsAdvisor
-//
-//  Created by Charlotte McCulloh (cm548) on 4/2/23.
-//
-
 import SwiftUI
 
 struct TabContainer: View {
+    @StateObject var dataStore = DataStore()
+    @StateObject var forecastLoader = ForecastLoader(apiClient: WeatherAPIClient())
+    @StateObject var currentConditionsLoader = CurrentConditionsLoader(apiClient: WeatherAPIClient())
+    
     @State var currentWeatherCity: City?
 
     var body: some View {
@@ -20,6 +17,8 @@ struct TabContainer: View {
             }
             NavigationView {
                 DetailView(city: City.previewData[0])
+                    .environmentObject(forecastLoader)
+                    .environmentObject(currentConditionsLoader)
             }
             .tabItem {
             Label("Details", systemImage: "book")
@@ -38,6 +37,7 @@ struct TabContainer: View {
             }
             NavigationView {
                 Preferences()
+                    .environmentObject(dataStore)
             }
             .tabItem {
             Label("Preferences", systemImage: "gearshape")
