@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3552B25529E91AE800CA3608 /* TomorrowIOAPIEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3552B25429E91AE800CA3608 /* TomorrowIOAPIEndpoint.swift */; };
+		3552B25729E91AFC00CA3608 /* TomorrowIOAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3552B25629E91AFC00CA3608 /* TomorrowIOAPIClient.swift */; };
+		3552B25929E91BF600CA3608 /* AirConditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3552B25829E91BF600CA3608 /* AirConditions.swift */; };
+		3552B25B29E921CF00CA3608 /* TomorrowIOLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3552B25A29E921CF00CA3608 /* TomorrowIOLoader.swift */; };
 		35B42E0029DA6D26002639BE /* TabContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35B42DFF29DA6D26002639BE /* TabContainer.swift */; };
 		38410BAD29D28642008A6082 /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38410BAC29D28642008A6082 /* Preferences.swift */; };
 		38B22D2029DF957A00721751 /* DataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38B22D1F29DF957A00721751 /* DataStore.swift */; };
@@ -29,6 +33,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3552B25429E91AE800CA3608 /* TomorrowIOAPIEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TomorrowIOAPIEndpoint.swift; sourceTree = "<group>"; };
+		3552B25629E91AFC00CA3608 /* TomorrowIOAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TomorrowIOAPIClient.swift; sourceTree = "<group>"; };
+		3552B25829E91BF600CA3608 /* AirConditions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirConditions.swift; sourceTree = "<group>"; };
+		3552B25A29E921CF00CA3608 /* TomorrowIOLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TomorrowIOLoader.swift; sourceTree = "<group>"; };
 		35B42DFF29DA6D26002639BE /* TabContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabContainer.swift; sourceTree = "<group>"; };
 		38410BAC29D28642008A6082 /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
 		38B22D1F29DF957A00721751 /* DataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStore.swift; sourceTree = "<group>"; };
@@ -62,6 +70,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3552B25229E919EA00CA3608 /* OpenWeather */ = {
+			isa = PBXGroup;
+			children = (
+				3F21AE3A29DDF47900DF9626 /* OpenWeatherEndpoint.swift */,
+				3F21AE3C29DDF7F400DF9626 /* OpenWeatherAPIClient.swift */,
+			);
+			path = OpenWeather;
+			sourceTree = "<group>";
+		};
+		3552B25329E91A0500CA3608 /* TomorrowIO */ = {
+			isa = PBXGroup;
+			children = (
+				3552B25429E91AE800CA3608 /* TomorrowIOAPIEndpoint.swift */,
+				3552B25629E91AFC00CA3608 /* TomorrowIOAPIClient.swift */,
+			);
+			path = TomorrowIO;
+			sourceTree = "<group>";
+		};
 		38410BAE29D288A0008A6082 /* Features */ = {
 			isa = PBXGroup;
 			children = (
@@ -118,9 +144,9 @@
 		3F21AE3929DDF46500DF9626 /* API */ = {
 			isa = PBXGroup;
 			children = (
+				3552B25329E91A0500CA3608 /* TomorrowIO */,
+				3552B25229E919EA00CA3608 /* OpenWeather */,
 				3F21AE4129DDFAD900DF9626 /* APIClient */,
-				3F21AE3A29DDF47900DF9626 /* OpenWeatherEndpoint.swift */,
-				3F21AE3C29DDF7F400DF9626 /* OpenWeatherAPIClient.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -131,6 +157,7 @@
 				3F21AE3F29DDF85A00DF9626 /* Weather.swift */,
 				3F21AE4D29DE020500DF9626 /* City.swift */,
 				38B22D2129DF95E900721751 /* SliderItem.swift */,
+				3552B25829E91BF600CA3608 /* AirConditions.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -148,6 +175,7 @@
 			isa = PBXGroup;
 			children = (
 				3F21AE4B29DDFCF300DF9626 /* CurrentConditionsLoader.swift */,
+				3552B25A29E921CF00CA3608 /* TomorrowIOLoader.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -222,6 +250,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3552B25929E91BF600CA3608 /* AirConditions.swift in Sources */,
 				3F21AE4029DDF85A00DF9626 /* Weather.swift in Sources */,
 				38B22D2229DF95E900721751 /* SliderItem.swift in Sources */,
 				3F21AE3D29DDF7F400DF9626 /* OpenWeatherAPIClient.swift in Sources */,
@@ -232,12 +261,15 @@
 				3F21AE3B29DDF47900DF9626 /* OpenWeatherEndpoint.swift in Sources */,
 				38B22D2029DF957A00721751 /* DataStore.swift in Sources */,
 				38F2E53129DA082900DC0783 /* Locations.swift in Sources */,
+				3552B25529E91AE800CA3608 /* TomorrowIOAPIEndpoint.swift in Sources */,
 				38B22D2A29DFC36A00721751 /* CLLocationCoordinate2D.swift in Sources */,
 				38E058BA29CB48C900F5BC6F /* OutdoorsAdvisorApp.swift in Sources */,
 				38410BAD29D28642008A6082 /* Preferences.swift in Sources */,
 				38F2E52D29D9F71900DC0783 /* DetailView.swift in Sources */,
+				3552B25729E91AFC00CA3608 /* TomorrowIOAPIClient.swift in Sources */,
 				38B22D2829DFC35B00721751 /* Extensions.swift in Sources */,
 				3F21AE4E29DE020500DF9626 /* City.swift in Sources */,
+				3552B25B29E921CF00CA3608 /* TomorrowIOLoader.swift in Sources */,
 				3F21AE4329DDFAFF00DF9626 /* APIClient.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
