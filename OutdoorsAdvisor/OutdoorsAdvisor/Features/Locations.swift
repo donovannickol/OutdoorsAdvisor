@@ -2,7 +2,6 @@ import SwiftUI
 
 struct Locations: View {
     @EnvironmentObject var dataStore: DataStore
-    @StateObject var forecastLoader = ForecastLoader(apiClient: WeatherAPIClient())
     @StateObject var currentConditionsLoader = CurrentConditionsLoader(apiClient: WeatherAPIClient())
     
     @State private var searchText = ""
@@ -39,7 +38,7 @@ struct Locations: View {
                 SearchBar(text: $searchText)
                     .padding(.horizontal)
                 List(filteredLocations) { location in
-                    NavigationLink(destination: DetailView(city: location).environmentObject(forecastLoader)
+                    NavigationLink(destination: DetailView(city: location)
                         .environmentObject(currentConditionsLoader)) {
                         LocationItem(location: location, value: 60)
                     }

@@ -2,7 +2,6 @@ import SwiftUI
 
 struct TabContainer: View {
     @EnvironmentObject var dataStore: DataStore
-    @StateObject var forecastLoader = ForecastLoader(apiClient: WeatherAPIClient())
     @StateObject var currentConditionsLoader = CurrentConditionsLoader(apiClient: WeatherAPIClient())
     
     @State var currentWeatherCity: City?
@@ -14,7 +13,6 @@ struct TabContainer: View {
         TabView{
             NavigationView {
                 DetailView(city: City.getCityById(UserDefaults.standard.string(forKey: "defaultLocation") ?? "") ?? City.previewData[0])
-                    .environmentObject(forecastLoader)
                     .environmentObject(currentConditionsLoader)
             }
             .tabItem {

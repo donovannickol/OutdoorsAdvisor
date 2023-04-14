@@ -24,7 +24,6 @@
 		3F21AE4029DDF85A00DF9626 /* Weather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F21AE3F29DDF85A00DF9626 /* Weather.swift */; };
 		3F21AE4329DDFAFF00DF9626 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F21AE4229DDFAFF00DF9626 /* APIClient.swift */; };
 		3F21AE4629DDFB2000DF9626 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F21AE4529DDFB2000DF9626 /* APIError.swift */; };
-		3F21AE4A29DDFCD100DF9626 /* ForecastLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F21AE4929DDFCD100DF9626 /* ForecastLoader.swift */; };
 		3F21AE4C29DDFCF300DF9626 /* CurrentConditionsLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F21AE4B29DDFCF300DF9626 /* CurrentConditionsLoader.swift */; };
 		3F21AE4E29DE020500DF9626 /* City.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F21AE4D29DE020500DF9626 /* City.swift */; };
 /* End PBXBuildFile section */
@@ -48,7 +47,6 @@
 		3F21AE3F29DDF85A00DF9626 /* Weather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weather.swift; sourceTree = "<group>"; };
 		3F21AE4229DDFAFF00DF9626 /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
 		3F21AE4529DDFB2000DF9626 /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
-		3F21AE4929DDFCD100DF9626 /* ForecastLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastLoader.swift; sourceTree = "<group>"; };
 		3F21AE4B29DDFCF300DF9626 /* CurrentConditionsLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentConditionsLoader.swift; sourceTree = "<group>"; };
 		3F21AE4D29DE020500DF9626 /* City.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = City.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -149,7 +147,6 @@
 		3F21AE4729DDFC3700DF9626 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				3F21AE4929DDFCD100DF9626 /* ForecastLoader.swift */,
 				3F21AE4B29DDFCF300DF9626 /* CurrentConditionsLoader.swift */,
 			);
 			path = Services;
@@ -226,7 +223,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				3F21AE4029DDF85A00DF9626 /* Weather.swift in Sources */,
-				3F21AE4A29DDFCD100DF9626 /* ForecastLoader.swift in Sources */,
 				38B22D2229DF95E900721751 /* SliderItem.swift in Sources */,
 				3F21AE3D29DDF7F400DF9626 /* OpenWeatherAPIClient.swift in Sources */,
 				35B42E0029DA6D26002639BE /* TabContainer.swift in Sources */,

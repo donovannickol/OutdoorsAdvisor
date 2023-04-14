@@ -62,7 +62,7 @@ struct DetailView: View {
                 case .success(let currentConditions):
 //                  WeatherDisplay(currentConditions: currentConditions, city: city)
                     FactorAmount(label: "Temperature", value: currentConditions.temperature, total: 100)
-                    FactorAmount(label: "Precipitation", value: currentConditions.precipitation, total: 10)
+//                    FactorAmount(label: "Precipitation", value: currentConditions.precipitation, total: 10)
                 }
 
             }.task { await currentConditionsLoader.loadWeatherData(city: city) }
@@ -130,15 +130,15 @@ struct WeatherDisplay: View {
       Text(city.name).font(.largeTitle)
       Text("Current Conditions".uppercased())
         .font(.caption)
-      Text(currentConditions.description)
+      //Text(currentConditions.description)
       Text(currentTemperature(currentConditions))
     }
     .padding(20)
   }
 
-  func currentConditions(_ weather: WeatherInfo) -> String {
-    weather.description
-  }
+//  func currentConditions(_ weather: WeatherInfo) -> String {
+//    weather.description
+//  }
 
   func currentTemperature(_ conditions: CurrentConditionsLoader.CurrentConditionsSummary) -> String {
     let formattedTemp = NumberFormatting.temperature(conditions.temperature) ?? "n/a"
@@ -158,7 +158,7 @@ struct NumberFormatting {
 
 struct DetailView_Previews: PreviewProvider {
     static var previews: some View {
-        DetailView(city: City.previewData[0]).environmentObject(ForecastLoader(apiClient: MockWeatherAPIClient()))
+        DetailView(city: City.previewData[0])
             .environmentObject(CurrentConditionsLoader(apiClient: MockWeatherAPIClient()))
     }
 }

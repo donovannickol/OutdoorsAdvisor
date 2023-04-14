@@ -11,10 +11,9 @@ class CurrentConditionsLoader: ObservableObject {
     case failed(error: Error)
   }
 
+  //can delete this if we only use temperature, but will keep in case we want more of the conditions
   struct CurrentConditionsSummary {
-    var description: String
     var temperature: Double
-    var precipitation: Double
   }
 
   enum DataError: Error {
@@ -30,13 +29,9 @@ class CurrentConditionsLoader: ObservableObject {
   func loadWeatherData(city: City) async {
     self.state = .loading
     do {
-      let response: CurrentWeatherResponse = try await apiClient.fetchCurrent(coordinate: city.coordinate)
-      if let weather = response.weathers.first {
-          let conditionsSummary = CurrentConditionsSummary(description: weather.description, temperature: response.data.temp, precipitation: response.rain.oneHour)
+        let response: CurrentWeatherResponse = try await apiClient.fetchCurrent(coordinate: city.coordinate)
+        let conditionsSummary = CurrentConditionsSummary(temperature: response.data.temp)
         self.state = .success(data: conditionsSummary)
-      } else {
-        self.state = .failed(error: DataError.noWeather)
-      }
     } catch {
       self.state = .failed(error: error)
     }
