@@ -9,14 +9,15 @@ import Foundation
 import CoreLocation
 
 protocol TomorrowIOAPI {
-    func fetchAirConditions(coordinate: CLLocationCoordinate2D) async throws -> AirConditionsResponse
+    //func fetchAirConditions(coordinate: CLLocationCoordinate2D) async throws -> AirConditionsResponse
+    func fetchAirConditions(city: String) async throws -> AirConditionsResponse
 }
 
 struct TomorrowIOAPIClient: TomorrowIOAPI, APIClient {
     let session: URLSession = .shared
     
-    func fetchAirConditions(coordinate: CLLocationCoordinate2D) async throws -> AirConditionsResponse {
-        let path = TomorrowIOAPIEndpoint.path(coordinate: coordinate)
+    func fetchAirConditions(city: String) async throws -> AirConditionsResponse {
+        let path = TomorrowIOAPIEndpoint.path(city: city)
         let response: AirConditionsResponse = try await performRequest(url: path)
         return response
     }

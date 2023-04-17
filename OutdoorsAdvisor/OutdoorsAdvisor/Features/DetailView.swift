@@ -11,6 +11,7 @@ struct Factor : Identifiable {
 struct DetailView: View {
     // mock data for testing view, replace with API results later
     @EnvironmentObject var currentConditionsLoader: CurrentConditionsLoader
+    @EnvironmentObject var tomorrowIOLoader: TomorrowIOLoader
     var defaultLocation = UserDefaults.standard.string(forKey: "defaultLocation")
     var isDefaultLocation: Bool {
         defaultLocation == city.id
@@ -55,17 +56,30 @@ struct DetailView: View {
 //                        FactorAmount(label: factor.name, value: factor.value, total: factor.total)
 //                    }
                 }
-                switch currentConditionsLoader.state {
+//                switch currentConditionsLoader.state {
+//                case .idle: Color.clear
+//                case .loading: ProgressView()
+//                case .failed(let error): Text("Error \(error.localizedDescription)")
+//                case .success(let currentConditions):
+////                  WeatherDisplay(currentConditions: currentConditions, city: city)
+//                    FactorAmount(label: "Temperature", value: currentConditions.temperature, total: 100)
+////                    FactorAmount(label: "Precipitation", value: currentConditions.precipitation, total: 10)
+//                }
+//
+//            }.task { await currentConditionsLoader.loadWeatherData(city: city)
+                switch tomorrowIOLoader.state {
                 case .idle: Color.clear
                 case .loading: ProgressView()
                 case .failed(let error): Text("Error \(error.localizedDescription)")
-                case .success(let currentConditions):
-//                  WeatherDisplay(currentConditions: currentConditions, city: city)
-                    FactorAmount(label: "Temperature", value: currentConditions.temperature, total: 100)
-//                    FactorAmount(label: "Precipitation", value: currentConditions.precipitation, total: 10)
+                case .success(let airData):
+                    let tempFahrenheit = airData.temperature * 1.8 + 32.0
+                    FactorAmount(label: "Temperature", value: tempFahrenheit, total: 100)
+                    FactorAmount(label: "Precipitation", value: airData.rain, total: 10) //not sure if 10 is the right metric... figuring this out
+                    FactorAmount(label: "UV Index", value: Double(airData.uvIndex), total: 11)
+                    
                 }
 
-            }.task { await currentConditionsLoader.loadWeatherData(city: city) }
+            }.task { await tomorrowIOLoader.loadAirConditions(city: city) }
         }
     }
 }

@@ -4,6 +4,7 @@ import SwiftUI
 struct OutdoorsAdvisorApp: App {
     @StateObject var dataStore = DataStore()
     @StateObject var currentConditionsLoader = CurrentConditionsLoader(apiClient: WeatherAPIClient())
+    @StateObject var tomorrowIOLoader = TomorrowIOLoader(apiClient: TomorrowIOAPIClient())
     
     @State var hasSaveLoadError: Bool = false
     @State var currentError: Error?
@@ -25,6 +26,7 @@ struct OutdoorsAdvisorApp: App {
             )
             .environmentObject(currentConditionsLoader)
             .environmentObject(dataStore)
+            .environmentObject(tomorrowIOLoader)
             .task {
               do {
                 dataStore.cities = try await DataStore.load()
