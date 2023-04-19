@@ -74,9 +74,13 @@ struct DetailView: View {
                 case .success(let airData):
                     let tempFahrenheit = airData.temperature * 1.8 + 32.0
                     FactorAmount(label: "Temperature", value: tempFahrenheit, total: 100)
-                    FactorAmount(label: "Precipitation", value: airData.rain, total: 10) //not sure if 10 is the right metric... figuring this out
+                    FactorAmount(label: "Chance of Precipitation", value: airData.rainProbability, total: 10) //not sure if 10 is the right metric... figuring this out
+                    if airData.rainProbability > 0 {
+                        FactorAmount(label: "UV Index", value: Double(airData.rainAmount), total: 10)
+                    }
                     FactorAmount(label: "UV Index", value: Double(airData.uvIndex), total: 11)
-                    
+                    FactorAmount(label: "Humidity", value: Double(airData.humidity), total: 100)
+                    FactorAmount(label: "Wind Speed", value: Double(airData.wind), total: 20)
                 }
 
             }.task { await tomorrowIOLoader.loadAirConditions(city: city) }

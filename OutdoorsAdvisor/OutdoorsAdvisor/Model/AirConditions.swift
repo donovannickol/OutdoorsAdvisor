@@ -18,7 +18,7 @@ public struct AirConditionsResponse: Decodable {
     }
     
     static func mock() -> AirConditionsResponse {
-        AirConditionsResponse(coordinate: Coordinate(latitude: 0.0, longitude: 0.0), data: AirData(values: AirDataValues(uvIndex: 5, rain: 0, temperature: 60.5)))
+        AirConditionsResponse(coordinate: Coordinate(latitude: 0.0, longitude: 0.0), data: AirData(values: AirDataValues(uvIndex: 5, rainAmount: 0, rainProbability: 0, temperature: 60.5, humidity: 96, wind: 2.38)))
     }
 }
 
@@ -38,15 +38,21 @@ public struct AirData: Decodable, Hashable {
 public struct AirDataValues: Decodable, Hashable {
     //var pollen
     var uvIndex: Int
-    var rain: Double
+    var rainAmount: Double
+    var rainProbability: Double
     var temperature: Double
+    var humidity: Int
+    var wind: Double
     
     private enum CodingKeys: String, CodingKey {
         //        case pollenT = "pollenTree"
         //        case pollenG = "pollenGrass"
         case uvIndex
-        case rain = "rainIntensity"
+        case rainAmount = "rainIntensity"
+        case rainProbability = "precipitationProbability"
         case temperature
+        case humidity
+        case wind = "windSpeed"
     }
 }
 
