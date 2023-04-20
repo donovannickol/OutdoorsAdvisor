@@ -22,3 +22,9 @@ struct TomorrowIOAPIClient: TomorrowIOAPI, APIClient {
         return response
     }
 }
+
+struct MockTomorrowIOAPIClient: TomorrowIOAPI {
+    func fetchAirConditions(city: String) async throws -> AirConditionsResponse {
+        AirConditionsResponse.mock()
+    }
+}

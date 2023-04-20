@@ -178,6 +178,6 @@ struct DetailView_Previews: PreviewProvider {
     static var previews: some View {
         DetailView(city: City.previewData[0])
             .environmentObject(CurrentConditionsLoader(apiClient: MockWeatherAPIClient()))
-            .environmentObject(TomorrowIOLoader(apiClient: TomorrowIOAPIClient()))
+            .environmentObject(TomorrowIOLoader(apiClient: MockTomorrowIOAPIClient()))
     }
 }

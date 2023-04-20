@@ -8,10 +8,10 @@
 import Foundation
 
 class TomorrowIOLoader: ObservableObject {
-    let apiClient: TomorrowIOAPIClient
+    let apiClient: TomorrowIOAPI
     @Published private(set) var state: LoadingState = .idle
     
-    init(apiClient: TomorrowIOAPIClient) {
+    init(apiClient: TomorrowIOAPI) {
         self.apiClient = apiClient
     }
     
