@@ -56,34 +56,31 @@ struct DetailView: View {
 //                        FactorAmount(label: factor.name, value: factor.value, total: factor.total)
 //                    }
                 }
-//                switch currentConditionsLoader.state {
-//                case .idle: Color.clear
-//                case .loading: ProgressView()
-//                case .failed(let error): Text("Error \(error.localizedDescription)")
-//                case .success(let currentConditions):
-////                  WeatherDisplay(currentConditions: currentConditions, city: city)
-//                    FactorAmount(label: "Temperature", value: currentConditions.temperature, total: 100)
-////                    FactorAmount(label: "Precipitation", value: currentConditions.precipitation, total: 10)
-//                }
-//
-//            }.task { await currentConditionsLoader.loadWeatherData(city: city)
                 switch tomorrowIOLoader.state {
                 case .idle: Color.clear
                 case .loading: ProgressView()
                 case .failed(let error): Text("Error \(error.localizedDescription)")
-                case .success(let airData):
-                    let tempFahrenheit = airData.temperature * 1.8 + 32.0
+                case .success(let weatherData):
+                    let tempFahrenheit = weatherData.temperature * 1.8 + 32.0
                     FactorAmount(label: "Temperature", value: tempFahrenheit, total: 100)
-                    FactorAmount(label: "Chance of Precipitation", value: airData.rainProbability, total: 10) //not sure if 10 is the right metric... figuring this out
-                    if airData.rainProbability > 0 {
-                        FactorAmount(label: "UV Index", value: Double(airData.rainAmount), total: 10)
+                    FactorAmount(label: "Chance of Precipitation", value: weatherData.rainProbability, total: 10) //not sure if 10 is the right metric... figuring this out
+                    if weatherData.rainProbability > 0 {
+                        FactorAmount(label: "UV Index", value: Double(weatherData.rainAmount), total: 10)
                     }
-                    FactorAmount(label: "UV Index", value: Double(airData.uvIndex), total: 11)
-                    FactorAmount(label: "Humidity", value: Double(airData.humidity), total: 100)
-                    FactorAmount(label: "Wind Speed", value: Double(airData.wind), total: 20)
+                    FactorAmount(label: "UV Index", value: Double(weatherData.uvIndex), total: 11)
+                    FactorAmount(label: "Humidity", value: Double(weatherData.humidity), total: 100)
+                    FactorAmount(label: "Wind Speed", value: Double(weatherData.wind), total: 20)
                 }
-
-            }.task { await tomorrowIOLoader.loadAirConditions(city: city) }
+                switch openWeatherLoader.state {
+                case .idle: Color.clear
+                case .loading: ProgressView()
+                case .failed(let error): Text("Error \(error.localizedDescription)")
+                case .success(let airData):
+                    FactorAmount(label: "Air Quality", value: airData.airQualityIndex, total: 5)
+                }
+            }
+            .task { await tomorrowIOLoader.loadWeatherConditions(city: city) }
+            .task { await openWeatherLoader.loadAirData(city: city) }
         }
     }
 }
@@ -139,30 +136,28 @@ struct FactorAmount: View {
     }
 }
 
-//struct WeatherDisplay: View {
-//  let currentAirQuality: OpenWeatherLoader.AirPollutionSummary
-//  let city: City
-//
-//  var body: some View {
-//    VStack {
-//      Text(city.name).font(.largeTitle)
-//      Text("Current Conditions".uppercased())
-//        .font(.caption)
-//      //Text(currentConditions.description)
-//      Text(currentTemperature(currentConditions))
-//    }
-//    .padding(20)
-//  }
-//
-////  func currentConditions(_ weather: WeatherInfo) -> String {
-////    weather.description
-////  }
-//
-//  func currentAirQuality(_ conditions: OpenWeatherLoader.AirPollutionSummary) -> String {
-//    let formattedTemp = NumberFormatting.temperature(conditions.temperature) ?? "n/a"
-//    return "\(formattedTemp)°"
-//  }
-//}
+struct WeatherDisplay: View {
+  let currentWeatherConditions: TomorrowIOLoader.WeatherConditionsSummary
+  let city: City
+
+  var body: some View {
+    VStack {
+      Text(city.name).font(.largeTitle)
+      Text("Current Conditions".uppercased())
+        .font(.caption)
+      //Text(currentConditions.description)
+      Text(currentTemperature(currentWeatherConditions))
+    }
+    .padding(20)
+  }
+    
+  //add currentConditions here (need to add tomorrowio equiv to WeatherInfo.description)
+
+  func currentTemperature(_ conditions: TomorrowIOLoader.WeatherConditionsSummary) -> String {
+    let formattedTemp = NumberFormatting.temperature(conditions.temperature) ?? "n/a"
+    return "\(formattedTemp)°"
+  }
+}
 
 struct NumberFormatting {
   static func temperature(_ temperature: Double) -> String? {

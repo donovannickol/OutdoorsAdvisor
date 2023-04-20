@@ -18,4 +18,3 @@ struct MockWeatherAPIClient: OpenWeatherAPI {
      AirPollutionResponse.mock()
  }
 }
-

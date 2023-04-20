@@ -22,12 +22,21 @@ class TomorrowIOLoader: ObservableObject {
         case failed(error: Error)
     }
     
+    struct WeatherConditionsSummary {
+        var uvIndex: Int
+        var rainAmount: Double
+        var rainProbability: Double
+        var temperature: Double
+        var humidity: Double
+        var wind: Double
+    }
+    
     enum DataError: Error {
       case noWeatherData
     }
     
     @MainActor
-    func loadAirConditions(city: City) async {
+    func loadWeatherConditions(city: City) async {
         self.state = .loading
         do {
             let response: WeatherConditionsResponse = try await apiClient.fetchWeatherConditions(city: city.name)

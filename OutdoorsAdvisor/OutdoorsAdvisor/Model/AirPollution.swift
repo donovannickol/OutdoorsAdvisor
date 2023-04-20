@@ -3,22 +3,37 @@ import CoreLocation
 
 public struct AirPollutionResponse: Decodable {
   var coordinate: Coordinate
-  var data: AirPollutionData
+  var data: [AirQualityData]
 
-  // There are some keys like dt, sys, base, etc. that I don't want to deal with
-  // So I will put just the keys I want here and rename some I like the least
   private enum CodingKeys: String, CodingKey {
     case coordinate = "coord"
-    case data = "main"
+    case data = "list"
   }
 
   static func mock() -> AirPollutionResponse {
-      AirPollutionResponse(coordinate: Coordinate(latitude: 0.0, longitude: 0.0), data: AirPollutionData(airQualityIndex: 2))
+      AirPollutionResponse(coordinate: Coordinate(latitude: 0.0, longitude: 0.0), data: [AirQualityData(airQualityIndexWrapper: AirQualityInfo(airQualityIndex: 2))])
   }
 }
 
-public struct AirPollutionData: Decodable {
-  var airQualityIndex: Double
+//json format:
+//{coord: {lon, lat}, list: [{main: {aqi}, components: {...}, dt: }]}
+
+public struct AirQualityData: Decodable, Hashable {
+    var airQualityIndexWrapper: AirQualityInfo
+//    var components: [AirPollutant]
+//    var date: Date
+    
+    private enum CodingKeys: String, CodingKey {
+      case airQualityIndexWrapper = "main"
+    }
+}
+
+public struct AirQualityInfo: Decodable, Hashable {
+    var airQualityIndex: Double
+    
+    private enum CodingKeys: String, CodingKey {
+        case airQualityIndex = "aqi"
+    }
 }
 
 public struct Coordinate: Decodable {

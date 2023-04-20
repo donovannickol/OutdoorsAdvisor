@@ -11,7 +11,6 @@ class OpenWeatherLoader: ObservableObject {
     case failed(error: Error)
   }
 
-  //can delete this if we only use temperature, but will keep in case we want more of the conditions
   struct AirPollutionSummary {
     var airQualityIndex: Double
   }
@@ -26,11 +25,11 @@ class OpenWeatherLoader: ObservableObject {
   }
 
   @MainActor
-  func loadWeatherData(city: City) async {
+  func loadAirData(city: City) async {
     self.state = .loading
     do {
         let response: AirPollutionResponse = try await apiClient.fetchAirPollution(coordinate: city.coordinate)
-        let airConditionsSummary = AirPollutionSummary(airQualityIndex: response.data.airQualityIndex)
+        let airConditionsSummary = AirPollutionSummary(airQualityIndex: response.data[0].airQualityIndexWrapper.airQualityIndex)
         self.state = .success(data: airConditionsSummary)
     } catch {
       self.state = .failed(error: error)
