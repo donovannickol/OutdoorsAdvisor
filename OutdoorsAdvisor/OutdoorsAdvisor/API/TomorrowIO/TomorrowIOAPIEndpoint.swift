@@ -13,8 +13,8 @@ struct TomorrowIOAPIEndpoint {
     static let apiKey = "xtkWwQY25s5YG5uszsvHPlxnwGPJ6orY"
     
     static func path(city: String) -> String {
-        //let locationParameter = "location=\(coordinate.latitude),%252C\(coordinate.longitude)"
-        let locationParameter = "location=\(city)"
+        let cityEncoded = city.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
+        let locationParameter = "location=\(cityEncoded)"
         return "\(baseUrl)?\(locationParameter)&apikey=\(apiKey)"
     }
 }

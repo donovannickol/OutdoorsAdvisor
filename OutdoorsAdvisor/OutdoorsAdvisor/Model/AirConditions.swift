@@ -41,7 +41,7 @@ public struct AirDataValues: Decodable, Hashable {
     var rainAmount: Double
     var rainProbability: Double
     var temperature: Double
-    var humidity: Int
+    var humidity: Double
     var wind: Double
     
     private enum CodingKeys: String, CodingKey {
