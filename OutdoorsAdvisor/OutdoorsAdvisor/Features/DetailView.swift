@@ -10,7 +10,7 @@ struct Factor : Identifiable {
 
 struct DetailView: View {
     // mock data for testing view, replace with API results later
-    @EnvironmentObject var currentConditionsLoader: CurrentConditionsLoader
+    @EnvironmentObject var openWeatherLoader: OpenWeatherLoader
     @EnvironmentObject var tomorrowIOLoader: TomorrowIOLoader
     var defaultLocation = UserDefaults.standard.string(forKey: "defaultLocation")
     var isDefaultLocation: Bool {
@@ -139,30 +139,30 @@ struct FactorAmount: View {
     }
 }
 
-struct WeatherDisplay: View {
-  let currentConditions: CurrentConditionsLoader.CurrentConditionsSummary
-  let city: City
-
-  var body: some View {
-    VStack {
-      Text(city.name).font(.largeTitle)
-      Text("Current Conditions".uppercased())
-        .font(.caption)
-      //Text(currentConditions.description)
-      Text(currentTemperature(currentConditions))
-    }
-    .padding(20)
-  }
-
-//  func currentConditions(_ weather: WeatherInfo) -> String {
-//    weather.description
+//struct WeatherDisplay: View {
+//  let currentAirQuality: OpenWeatherLoader.AirPollutionSummary
+//  let city: City
+//
+//  var body: some View {
+//    VStack {
+//      Text(city.name).font(.largeTitle)
+//      Text("Current Conditions".uppercased())
+//        .font(.caption)
+//      //Text(currentConditions.description)
+//      Text(currentTemperature(currentConditions))
+//    }
+//    .padding(20)
 //  }
-
-  func currentTemperature(_ conditions: CurrentConditionsLoader.CurrentConditionsSummary) -> String {
-    let formattedTemp = NumberFormatting.temperature(conditions.temperature) ?? "n/a"
-    return "\(formattedTemp)°"
-  }
-}
+//
+////  func currentConditions(_ weather: WeatherInfo) -> String {
+////    weather.description
+////  }
+//
+//  func currentAirQuality(_ conditions: OpenWeatherLoader.AirPollutionSummary) -> String {
+//    let formattedTemp = NumberFormatting.temperature(conditions.temperature) ?? "n/a"
+//    return "\(formattedTemp)°"
+//  }
+//}
 
 struct NumberFormatting {
   static func temperature(_ temperature: Double) -> String? {
@@ -177,7 +177,7 @@ struct NumberFormatting {
 struct DetailView_Previews: PreviewProvider {
     static var previews: some View {
         DetailView(city: City.previewData[0])
-            .environmentObject(CurrentConditionsLoader(apiClient: MockWeatherAPIClient()))
+            .environmentObject(OpenWeatherLoader(apiClient: MockWeatherAPIClient()))
             .environmentObject(TomorrowIOLoader(apiClient: MockTomorrowIOAPIClient()))
     }
 }

@@ -1,21 +1,21 @@
 import CoreLocation
-protocol WeatherAPI {
- func fetchCurrent(coordinate: CLLocationCoordinate2D) async throws -> CurrentWeatherResponse
+protocol OpenWeatherAPI {
+ func fetchAirPollution(coordinate: CLLocationCoordinate2D) async throws -> AirPollutionResponse
 }
 
-struct WeatherAPIClient: WeatherAPI, APIClient {
+struct OpenWeatherAPIClient: OpenWeatherAPI, APIClient {
  let session: URLSession = .shared
 
- func fetchCurrent(coordinate: CLLocationCoordinate2D) async throws -> CurrentWeatherResponse {
+ func fetchAirPollution(coordinate: CLLocationCoordinate2D) async throws -> AirPollutionResponse {
    let path = OpenWeatherEndpoint.path(coordinate: coordinate)
-   let response: CurrentWeatherResponse = try await performRequest(url: path)
+   let response: AirPollutionResponse = try await performRequest(url: path)
    return response
  }
 }
 
-struct MockWeatherAPIClient: WeatherAPI {
- func fetchCurrent(coordinate: CLLocationCoordinate2D) async throws -> CurrentWeatherResponse {
-   CurrentWeatherResponse.mock()
+struct MockWeatherAPIClient: OpenWeatherAPI {
+ func fetchAirPollution(coordinate: CLLocationCoordinate2D) async throws -> AirPollutionResponse {
+     AirPollutionResponse.mock()
  }
 }
 

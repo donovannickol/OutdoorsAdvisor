@@ -6,7 +6,7 @@ struct OpenWeatherEndpoint {
   static let apiKey = "24c3e1fbecc7904e8ae023cff8033b66"
 
   static func path(coordinate: CLLocationCoordinate2D) -> String {
-    let url = "\(baseUrl)/weather"
+    let url = "\(baseUrl)/air_pollution"
     let key = "appid=\(apiKey)"
     let units = "units=imperial"
     let queryParameters = "lat=\(coordinate.latitude)&lon=\(coordinate.longitude)"

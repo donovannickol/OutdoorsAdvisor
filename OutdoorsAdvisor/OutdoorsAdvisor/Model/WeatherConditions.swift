@@ -8,17 +8,17 @@
 import Foundation
 import CoreLocation
 
-public struct AirConditionsResponse: Decodable {
+public struct WeatherConditionsResponse: Decodable {
     var coordinate: Coordinate
-    var data: AirData
+    var data: WeatherData
     
     private enum CodingKeys: String, CodingKey {
         case data
         case coordinate = "location"
     }
     
-    static func mock() -> AirConditionsResponse {
-        AirConditionsResponse(coordinate: Coordinate(latitude: 0.0, longitude: 0.0), data: AirData(values: AirDataValues(uvIndex: 5, rainAmount: 0, rainProbability: 0, temperature: 60.5, humidity: 96, wind: 2.38)))
+    static func mock() -> WeatherConditionsResponse {
+        WeatherConditionsResponse(coordinate: Coordinate(latitude: 0.0, longitude: 0.0), data: WeatherData(values: WeatherDataValues(uvIndex: 5, rainAmount: 0, rainProbability: 0, temperature: 60.5, humidity: 96, wind: 2.38)))
     }
 }
 
@@ -31,11 +31,11 @@ public struct AirConditionsResponse: Decodable {
 //      "cloudCeiling": 0.13,
 //        etc
         
-public struct AirData: Decodable, Hashable {
-    var values: AirDataValues
+public struct WeatherData: Decodable, Hashable {
+    var values: WeatherDataValues
 }
 
-public struct AirDataValues: Decodable, Hashable {
+public struct WeatherDataValues: Decodable, Hashable {
     //var pollen
     var uvIndex: Int
     var rainAmount: Double
@@ -56,7 +56,7 @@ public struct AirDataValues: Decodable, Hashable {
     }
 }
 
-public struct AirConditionsSummary: Decodable, Hashable {
-    var data: AirData
+public struct WeatherConditionsSummary: Decodable, Hashable {
+    var data: WeatherData
     
 }

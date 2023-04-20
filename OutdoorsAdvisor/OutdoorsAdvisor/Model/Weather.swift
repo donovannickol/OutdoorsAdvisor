@@ -1,9 +1,9 @@
 import Foundation
 import CoreLocation
 
-public struct CurrentWeatherResponse: Decodable {
+public struct AirPollutionResponse: Decodable {
   var coordinate: Coordinate
-  var data: TemperatureData
+  var data: AirPollutionData
 
   // There are some keys like dt, sys, base, etc. that I don't want to deal with
   // So I will put just the keys I want here and rename some I like the least
@@ -12,13 +12,13 @@ public struct CurrentWeatherResponse: Decodable {
     case data = "main"
   }
 
-  static func mock() -> CurrentWeatherResponse {
-      CurrentWeatherResponse(coordinate: Coordinate(latitude: 0.0, longitude: 0.0), data: TemperatureData(temp: 32.0))
+  static func mock() -> AirPollutionResponse {
+      AirPollutionResponse(coordinate: Coordinate(latitude: 0.0, longitude: 0.0), data: AirPollutionData(airQualityIndex: 2))
   }
 }
 
-public struct TemperatureData: Decodable {
-  var temp: Double
+public struct AirPollutionData: Decodable {
+  var airQualityIndex: Double
 }
 
 public struct Coordinate: Decodable {

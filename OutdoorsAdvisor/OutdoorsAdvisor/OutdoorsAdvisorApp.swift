@@ -3,7 +3,7 @@ import SwiftUI
 @main
 struct OutdoorsAdvisorApp: App {
     @StateObject var dataStore = DataStore()
-    @StateObject var currentConditionsLoader = CurrentConditionsLoader(apiClient: WeatherAPIClient())
+    @StateObject var openWeatherLoader = OpenWeatherLoader(apiClient: OpenWeatherAPIClient())
     @StateObject var tomorrowIOLoader = TomorrowIOLoader(apiClient: TomorrowIOAPIClient())
     
     @State var hasSaveLoadError: Bool = false
@@ -24,7 +24,7 @@ struct OutdoorsAdvisorApp: App {
                 }
             }
             )
-            .environmentObject(currentConditionsLoader)
+            .environmentObject(openWeatherLoader)
             .environmentObject(dataStore)
             .environmentObject(tomorrowIOLoader)
             .task {

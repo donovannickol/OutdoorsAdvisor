@@ -2,7 +2,7 @@ import SwiftUI
 
 struct Locations: View {
     @EnvironmentObject var dataStore: DataStore
-    @StateObject var currentConditionsLoader = CurrentConditionsLoader(apiClient: WeatherAPIClient())
+    @StateObject var openWeatherLoader = OpenWeatherLoader(apiClient: OpenWeatherAPIClient())
     
     @State private var searchText = ""
     @State private var newLocationName = ""
@@ -39,7 +39,7 @@ struct Locations: View {
                     .padding(.horizontal)
                 List(filteredLocations) { location in
                     NavigationLink(destination: DetailView(city: location)
-                        .environmentObject(currentConditionsLoader)) {
+                        .environmentObject(openWeatherLoader)) {
                         LocationItem(location: location, value: 60)
                     }
                         .swipeActions(edge: .trailing) {

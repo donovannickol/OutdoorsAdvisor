@@ -18,19 +18,19 @@ class TomorrowIOLoader: ObservableObject {
     enum LoadingState {
         case idle
         case loading
-        case success(data: AirDataValues)
+        case success(data: WeatherDataValues)
         case failed(error: Error)
     }
     
     enum DataError: Error {
-      case noAirData
+      case noWeatherData
     }
     
     @MainActor
     func loadAirConditions(city: City) async {
         self.state = .loading
         do {
-            let response: AirConditionsResponse = try await apiClient.fetchAirConditions(city: city.name)
+            let response: WeatherConditionsResponse = try await apiClient.fetchWeatherConditions(city: city.name)
             self.state = .success(data: response.data.values)
         } catch {
             self.state = .failed(error: error)

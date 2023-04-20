@@ -10,21 +10,21 @@ import CoreLocation
 
 protocol TomorrowIOAPI {
     //func fetchAirConditions(coordinate: CLLocationCoordinate2D) async throws -> AirConditionsResponse
-    func fetchAirConditions(city: String) async throws -> AirConditionsResponse
+    func fetchWeatherConditions(city: String) async throws -> WeatherConditionsResponse
 }
 
 struct TomorrowIOAPIClient: TomorrowIOAPI, APIClient {
     let session: URLSession = .shared
     
-    func fetchAirConditions(city: String) async throws -> AirConditionsResponse {
+    func fetchWeatherConditions(city: String) async throws -> WeatherConditionsResponse {
         let path = TomorrowIOAPIEndpoint.path(city: city)
-        let response: AirConditionsResponse = try await performRequest(url: path)
+        let response: WeatherConditionsResponse = try await performRequest(url: path)
         return response
     }
 }
 
 struct MockTomorrowIOAPIClient: TomorrowIOAPI {
-    func fetchAirConditions(city: String) async throws -> AirConditionsResponse {
-        AirConditionsResponse.mock()
+    func fetchWeatherConditions(city: String) async throws -> WeatherConditionsResponse {
+        WeatherConditionsResponse.mock()
     }
 }
