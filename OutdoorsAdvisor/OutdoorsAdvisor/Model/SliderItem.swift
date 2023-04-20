@@ -21,10 +21,10 @@ struct SliderItem : Identifiable {
 
 extension SliderItem {
     static let previewData = [
-        SliderItem(sliderName: "Pollen", sliderValue: 0),
-        SliderItem(sliderName: "Air Quality", sliderValue: 0),
-        SliderItem(sliderName: "Precipitation", sliderValue: 0),
         SliderItem(sliderName: "Temperature", sliderValue: 0),
-        SliderItem(sliderName: "UV", sliderValue: 0)
+        SliderItem(sliderName: "Precipitation", sliderValue: 0),
+        SliderItem(sliderName: "UV", sliderValue: 0),
+        SliderItem(sliderName: "Humidity", sliderValue: 0),
+        SliderItem(sliderName: "Wind", sliderValue: 0)
     ]
 }
