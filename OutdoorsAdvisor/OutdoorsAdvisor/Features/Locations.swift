@@ -42,6 +42,11 @@ struct Locations: View {
                         .environmentObject(currentConditionsLoader)) {
                         LocationItem(location: location, value: 60)
                     }
+                        .swipeActions(edge: .trailing) {
+                            Button(role: .destructive) {
+                                dataStore.removeCity(location)
+                            } label: { Label("Delete", systemImage: "trash") }
+                        }
                 }
                 .listStyle(.insetGrouped)
             }

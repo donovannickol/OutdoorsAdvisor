@@ -8,6 +8,12 @@ class DataStore: ObservableObject {
         cities.append(city)
     }
     
+    func removeCity(_ city: City) {
+        if let index = cities.firstIndex(where: { $0.id == city.id }) {
+          cities.remove(at: index)
+        }
+    }
+    
     private static func fileURL() throws -> URL {
       try FileManager.default.url(for: .documentDirectory,
                                      in: .userDomainMask,
