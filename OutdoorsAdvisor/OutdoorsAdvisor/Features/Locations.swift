@@ -2,7 +2,9 @@ import SwiftUI
 
 struct Locations: View {
     @EnvironmentObject var dataStore: DataStore
-    @StateObject var openWeatherLoader = OpenWeatherLoader(apiClient: OpenWeatherAPIClient())
+//    @StateObject var openWeatherLoader = OpenWeatherLoader(apiClient: OpenWeatherAPIClient())
+    @EnvironmentObject var openWeatherLoader: OpenWeatherLoader
+    @EnvironmentObject var tomorrowIOLoader: TomorrowIOLoader
     
     @State private var searchText = ""
     @State private var newLocationName = ""
@@ -39,7 +41,7 @@ struct Locations: View {
                     .padding(.horizontal)
                 List(filteredLocations) { location in
                     NavigationLink(destination: DetailView(city: location)
-                        .environmentObject(openWeatherLoader)) {
+                        .environmentObject(openWeatherLoader).environmentObject(tomorrowIOLoader).environmentObject(dataStore)) {
                         LocationItem(location: location, value: 60)
                     }
                         .swipeActions(edge: .trailing) {
@@ -88,9 +90,7 @@ struct LocationItem: View {
                     .foregroundColor(.yellow)
             }
             Spacer()
-            Text(String(format: "%.0f%%", value))
-                .font(.headline)
-                .foregroundColor(.secondary)
+            
         }
         .padding(.vertical, 8)
     }

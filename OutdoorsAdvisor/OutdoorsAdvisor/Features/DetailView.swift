@@ -12,13 +12,15 @@ struct DetailView: View {
     // mock data for testing view, replace with API results later
     @EnvironmentObject var openWeatherLoader: OpenWeatherLoader
     @EnvironmentObject var tomorrowIOLoader: TomorrowIOLoader
+    @EnvironmentObject var dataStore: DataStore
+
     var defaultLocation = UserDefaults.standard.string(forKey: "defaultLocation")
     var isDefaultLocation: Bool {
         defaultLocation == city.id
     }
 //    @State var isDefaultLocation: Bool = false
     var city: City
-    @State var progressValue: Float = 60
+    @State var progressValue: Double = 60
 //    var factors: [Factor] = [
 //        Factor(name: "Temperature", value: 50, total: 100),
 //        Factor(name: "Air Quality", value: 43, total: 500),
@@ -56,28 +58,40 @@ struct DetailView: View {
 //                        FactorAmount(label: factor.name, value: factor.value, total: factor.total)
 //                    }
                 }
-                switch tomorrowIOLoader.state {
-                case .idle: Color.clear
-                case .loading: ProgressView()
-                case .failed(let error): Text("Error \(error.localizedDescription)")
-                case .success(let weatherData):
-                    let tempFahrenheit = weatherData.temperature * 1.8 + 32.0
-                    FactorAmount(label: "Temperature", value: tempFahrenheit, total: 100)
-                    FactorAmount(label: "Chance of Precipitation", value: weatherData.rainProbability, total: 10) //not sure if 10 is the right metric... figuring this out
-                    if weatherData.rainProbability > 0 {
-                        FactorAmount(label: "UV Index", value: Double(weatherData.rainAmount), total: 10)
-                    }
-                    FactorAmount(label: "UV Index", value: Double(weatherData.uvIndex), total: 11)
-                    FactorAmount(label: "Humidity", value: Double(weatherData.humidity), total: 100)
-                    FactorAmount(label: "Wind Speed", value: Double(weatherData.wind), total: 20)
-                }
+                var temp: Double = 0
                 switch openWeatherLoader.state {
                 case .idle: Color.clear
                 case .loading: ProgressView()
                 case .failed(let error): Text("Error \(error.localizedDescription)")
                 case .success(let airData):
-                    FactorAmount(label: "Air Quality", value: airData.airQualityIndex, total: 5)
+                    
+                    
+                    FactorAmount(label: "Air Quality", value: airData.airQualityIndex, total: 5).onAppear(perform: {
+                        temp = airData.airQualityIndex
+                    })
                 }
+                switch tomorrowIOLoader.state {
+                case .idle: Color.clear
+                case .loading: ProgressView()
+                case .failed(let error): Text("Error \(error.localizedDescription)")
+                case .success(let weatherData):
+                    
+                    let tempFahrenheit = weatherData.temperature * 1.8 + 32.0
+                    FactorAmount(label: "Temperature", value: tempFahrenheit, total: 120)
+                    FactorAmount(label: "Chance of Precipitation", value: weatherData.rainProbability, total: 100) //not sure if 10 is the right metric... figuring this out
+                    if weatherData.rainProbability > 0 {
+                        FactorAmount(label: "Rain Amount", value: Double(weatherData.rainAmount), total: 10)
+                    }
+                    FactorAmount(label: "UV Index", value: Double(weatherData.uvIndex), total: 11)
+                    FactorAmount(label: "Humidity", value: Double(weatherData.humidity), total: 100)
+                    FactorAmount(label: "Wind Speed", value: Double(weatherData.wind), total: 20).onAppear(perform: {
+                        let _ = print("bruh")
+                        let enjoyment = City.cityEnjoyment(weather: weatherData, air: temp, preferences: dataStore.preferences)
+                        let _ = print(enjoyment)
+                        progressValue = enjoyment
+                    })
+                }
+                
             }
             .task { await tomorrowIOLoader.loadWeatherConditions(city: city) }
             .task { await openWeatherLoader.loadAirData(city: city) }
@@ -87,7 +101,7 @@ struct DetailView: View {
 
 
 struct ProgressBar: View {
-    @Binding var progress: Float
+    @Binding var progress: Double
     
     var body: some View {
         ZStack {
@@ -173,6 +187,6 @@ struct DetailView_Previews: PreviewProvider {
     static var previews: some View {
         DetailView(city: City.previewData[0])
             .environmentObject(OpenWeatherLoader(apiClient: MockWeatherAPIClient()))
-            .environmentObject(TomorrowIOLoader(apiClient: MockTomorrowIOAPIClient()))
+            .environmentObject(TomorrowIOLoader(apiClient: MockTomorrowIOAPIClient())).environmentObject(DataStore())
     }
 }

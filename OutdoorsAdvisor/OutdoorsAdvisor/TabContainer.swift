@@ -2,9 +2,11 @@ import SwiftUI
 
 struct TabContainer: View {
     @EnvironmentObject var dataStore: DataStore
-    @StateObject var openWeatherLoader = OpenWeatherLoader(apiClient: OpenWeatherAPIClient())
-    @StateObject var tomorrowIOLoader = TomorrowIOLoader(apiClient: TomorrowIOAPIClient())
-    
+//    @StateObject var openWeatherLoader = OpenWeatherLoader(apiClient: OpenWeatherAPIClient())
+//    @StateObject var tomorrowIOLoader = TomorrowIOLoader(apiClient: TomorrowIOAPIClient())
+//
+    @EnvironmentObject var openWeatherLoader: OpenWeatherLoader
+    @EnvironmentObject var tomorrowIOLoader: TomorrowIOLoader
     @State var currentWeatherCity: City?
     
     @Environment(\.scenePhase) private var scenePhase
@@ -16,6 +18,7 @@ struct TabContainer: View {
                 DetailView(city: City.getCityById(UserDefaults.standard.string(forKey: "defaultLocation") ?? "") ?? City.previewData[0])
                     .environmentObject(openWeatherLoader)
                     .environmentObject(tomorrowIOLoader)
+                    .environmentObject(dataStore)
             }
             .tabItem {
                 Label("Home", systemImage: "cloud.sun.rain")
@@ -36,6 +39,8 @@ struct TabContainer: View {
             }
             NavigationView {
                 Locations()
+                    .environmentObject(openWeatherLoader)
+                    .environmentObject(tomorrowIOLoader)
                     .environmentObject(dataStore)
             }
             .tabItem {
