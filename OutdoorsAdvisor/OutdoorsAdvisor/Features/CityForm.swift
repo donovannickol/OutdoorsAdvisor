@@ -5,7 +5,6 @@ struct CityForm: View {
 
   var body: some View {
     Form {
-        TextFieldWithLabel(label: "Id", text: $data.id, prompt: "Id")
         TextFieldWithLabel(label: "Name", text: $data.name, prompt: "Name")
         TextFieldWithLabel(label: "Latitude", text: $data.latitude, prompt: "Latitude")
         TextFieldWithLabel(label: "Longitude", text: $data.longitude, prompt: "Longitude")
