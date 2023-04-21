@@ -48,34 +48,39 @@ struct DetailView: View {
             ScrollView {
                 Text(city.name)
                     .font(.title)
-                    .bold()
-                
+                    .bold().padding(.bottom, 20.0)
+                Text("Overall Weather Quality").font(.headline)
                 VStack {
+                    
                     ProgressBar(progress: self.$progressValue)
                         .frame(width: 150.0, height: 150.0)
-                        .padding(40.0)
+                        .padding(.bottom, 40.0)
+                        .padding(.top, 20.0)
                     
 //                    ForEach(factors, id: \.id) { factor in
 //                        FactorAmount(label: factor.name, value: factor.value, total: factor.total)
 //                    }
                 }
+                var tempPollen: Double = 0
                 switch pollenLoader.state {
                 case .idle: Color.clear
                 case .loading: ProgressView()
                 case .failed(let error): Text("Error \(error.localizedDescription)")
                 case .success(let pollenSummary):
                     let totalPollen = pollenSummary.pollenGrass + pollenSummary.pollenTree
-                    FactorAmount(label: "Pollen", value: Double(totalPollen), total: 10)
+                    FactorAmount(label: "Pollen", value: Double(totalPollen), total: 10).onAppear(perform: {
+                        tempPollen = Double(pollenSummary.pollenTree)
+                    })
                 }
                 
-                var temp: Double = 0
+                var tempAir: Double = 0
                 switch openWeatherLoader.state {
                 case .idle: Color.clear
                 case .loading: ProgressView()
                 case .failed(let error): Text("Error \(error.localizedDescription)")
                 case .success(let airData):
                     FactorAmount(label: "Air Quality", value: airData.airQualityIndex, total: 5).onAppear(perform: {
-                        temp = airData.airQualityIndex
+                        tempAir = airData.airQualityIndex
                     })
                 }
                 
@@ -87,16 +92,16 @@ struct DetailView: View {
                     
                     let tempFahrenheit = weatherData.temperature * 1.8 + 32.0
                     FactorAmount(label: "Temperature", value: tempFahrenheit, total: 120)
-                    FactorAmount(label: "Chance of Precipitation", value: weatherData.rainProbability, total: 100) //not sure if 10 is the right metric... figuring this out
+                    FactorAmount(label: "Chance of Precipitation", value: weatherData.rainProbability, total: 100)
                     if weatherData.rainProbability > 0 {
                         FactorAmount(label: "Rain Amount", value: Double(weatherData.rainAmount), total: 10)
                     }
                     FactorAmount(label: "UV Index", value: Double(weatherData.uvIndex), total: 11)
                     FactorAmount(label: "Humidity", value: Double(weatherData.humidity), total: 100)
                     FactorAmount(label: "Wind Speed", value: Double(weatherData.wind), total: 20).onAppear(perform: {
-                        let _ = print("bruh")
-                        let enjoyment = City.cityEnjoyment(weather: weatherData, air: temp, preferences: dataStore.preferences)
-                        let _ = print(enjoyment)
+                        
+                        let enjoyment = City.cityEnjoyment(weather: weatherData, air: tempAir, pollen: tempPollen, preferences: dataStore.preferences)
+                        
                         progressValue = enjoyment
                     })
                 }
@@ -197,6 +202,6 @@ struct DetailView_Previews: PreviewProvider {
     static var previews: some View {
         DetailView(city: City.previewData[0])
             .environmentObject(OpenWeatherLoader(apiClient: MockWeatherAPIClient()))
-            .environmentObject(TomorrowIOLoader(apiClient: MockTomorrowIOAPIClient())).environmentObject(DataStore())
+            .environmentObject(TomorrowIOLoader(apiClient: MockTomorrowIOAPIClient())).environmentObject(PollenLoader(apiClient: MockTomorrowIOAPIClient())).environmentObject(DataStore())
     }
 }

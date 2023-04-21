@@ -5,6 +5,7 @@ struct Locations: View {
 //    @StateObject var openWeatherLoader = OpenWeatherLoader(apiClient: OpenWeatherAPIClient())
     @EnvironmentObject var openWeatherLoader: OpenWeatherLoader
     @EnvironmentObject var tomorrowIOLoader: TomorrowIOLoader
+    @EnvironmentObject var pollenLoader: PollenLoader
     
     @State private var searchText = ""
     @State private var newLocationName = ""
@@ -41,7 +42,7 @@ struct Locations: View {
                     .padding(.horizontal)
                 List(filteredLocations) { location in
                     NavigationLink(destination: DetailView(city: location)
-                        .environmentObject(openWeatherLoader).environmentObject(tomorrowIOLoader).environmentObject(dataStore)) {
+                        .environmentObject(openWeatherLoader).environmentObject(tomorrowIOLoader).environmentObject(pollenLoader).environmentObject(dataStore)) {
                         LocationItem(location: location, value: 60)
                     }
                         .swipeActions(edge: .trailing) {
@@ -99,6 +100,7 @@ struct LocationItem: View {
 struct Locations_Previews: PreviewProvider {
     static var previews: some View {
         Locations()
-            .environmentObject(DataStore())
+            .environmentObject(DataStore()).environmentObject(OpenWeatherLoader(apiClient: MockWeatherAPIClient()))
+            .environmentObject(TomorrowIOLoader(apiClient: MockTomorrowIOAPIClient())).environmentObject(PollenLoader(apiClient: MockTomorrowIOAPIClient())).environmentObject(DataStore())
     }
 }

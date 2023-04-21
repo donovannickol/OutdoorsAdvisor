@@ -34,12 +34,14 @@ struct City: Identifiable, Codable {
     static func getCityById(_ id: String) -> City? {
         return City.previewData.first(where: { $0.id == id })
     }
-    static func cityEnjoyment(weather: WeatherDataValues, air: Double, preferences: [SliderItem]) -> Double{
+    static func cityEnjoyment(weather: WeatherDataValues, air: Double, pollen: Double, preferences: [SliderItem]) -> Double{
         var value = preferences[0].sliderValue * (120 - abs(weather.temperature - 70)) + preferences[1].sliderValue * (100 - weather.rainProbability)
         value += preferences[2].sliderValue  * (11 - Double(weather.uvIndex))
         value += preferences[3].sliderValue * (100 - weather.humidity)
         value += preferences[4].sliderValue * weather.wind + preferences[5].sliderValue * air
-        value = value / (preferences[0].sliderValue + preferences[1].sliderValue + preferences[2].sliderValue + preferences[3].sliderValue + preferences[4].sliderValue + preferences[5].sliderValue)
+        value += preferences[6].sliderValue * pollen
+        value = value / (preferences[0].sliderValue + preferences[1].sliderValue + preferences[2].sliderValue + preferences[3].sliderValue + preferences[4].sliderValue + preferences[5].sliderValue + preferences[6].sliderValue)
+        value += 25 //enjoyment value seems too low always
         return value
     }
 }
