@@ -197,6 +197,7 @@ struct DetailView_Previews: PreviewProvider {
     static var previews: some View {
         DetailView(city: City.previewData[0])
             .environmentObject(OpenWeatherLoader(apiClient: MockWeatherAPIClient()))
+            .environmentObject(PollenLoader(apiClient: MockTomorrowIOAPIClient())).environmentObject(DataStore())
             .environmentObject(TomorrowIOLoader(apiClient: MockTomorrowIOAPIClient())).environmentObject(DataStore())
     }
 }
