@@ -5,10 +5,19 @@ protocol APIClient {
 }
 
 extension APIClient {
-  func performRequest<Response:Decodable>(url: String) async throws -> Response {
+  func performGETRequest<Response:Decodable>(url: String) async throws -> Response {
     guard let url = URL(string: url) else { throw APIError.invalidUrl(url) }
     let response: Response = try await perform(request: URLRequest(url: url))
     return response
+  }
+
+  func performPOSTRequest<Response:Decodable>(url: String, body: Data?) async throws -> Response {
+      guard let url = URL(string: url) else { throw APIError.invalidUrl(url) }
+      var request = URLRequest(url: url)
+      request.httpMethod = "POST"
+      request.httpBody = body
+      let response: Response = try await perform(request: request)
+      return response
   }
 
   func perform<Response:Decodable>(request: URLRequest) async throws -> Response {

@@ -8,7 +8,7 @@ struct OpenWeatherAPIClient: OpenWeatherAPI, APIClient {
 
  func fetchAirPollution(coordinate: CLLocationCoordinate2D) async throws -> AirPollutionResponse {
    let path = OpenWeatherEndpoint.path(coordinate: coordinate)
-   let response: AirPollutionResponse = try await performRequest(url: path)
+   let response: AirPollutionResponse = try await performGETRequest(url: path)
    return response
  }
 }

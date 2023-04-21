@@ -5,6 +5,7 @@ struct OutdoorsAdvisorApp: App {
     @StateObject var dataStore = DataStore()
     @StateObject var openWeatherLoader = OpenWeatherLoader(apiClient: OpenWeatherAPIClient())
     @StateObject var tomorrowIOLoader = TomorrowIOLoader(apiClient: TomorrowIOAPIClient())
+    @StateObject var pollenLoader = PollenLoader(apiClient: TomorrowIOAPIClient())
     
     @State var hasSaveLoadError: Bool = false
     @State var currentError: Error?
@@ -27,6 +28,7 @@ struct OutdoorsAdvisorApp: App {
             .environmentObject(openWeatherLoader)
             .environmentObject(dataStore)
             .environmentObject(tomorrowIOLoader)
+            .environmentObject(pollenLoader)
             .task {
               do {
                 dataStore.cities = try await DataStore.load()

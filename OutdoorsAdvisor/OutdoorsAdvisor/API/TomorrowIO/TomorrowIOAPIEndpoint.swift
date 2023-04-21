@@ -9,12 +9,21 @@ import Foundation
 import CoreLocation
 
 struct TomorrowIOAPIEndpoint {
-    static let baseUrl = "https://api.tomorrow.io/v4/weather/realtime"
-    static let apiKey = "xtkWwQY25s5YG5uszsvHPlxnwGPJ6orY"
+    static let baseUrl = "https://api.tomorrow.io/v4"
+    static let apiKey = "iVwOmHfoBDl26nCpiKyIvw5ij9JlJiVx"
+    //in case of maxed out calls: xtkWwQY25s5YG5uszsvHPlxnwGPJ6orY
     
-    static func path(city: String) -> String {
-        let cityEncoded = city.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
-        let locationParameter = "location=\(cityEncoded)"
-        return "\(baseUrl)?\(locationParameter)&apikey=\(apiKey)"
+    enum QueryType: String {
+        case weather = "weather/realtime"
+        case pollen = "timelines"
+    }
+    
+    static func path(city: String, queryType: QueryType) -> String {
+        var queryParameters = ""
+        if queryType == .weather {
+            let cityEncoded = city.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
+            queryParameters = "location=\(cityEncoded)&"
+        }
+        return "\(baseUrl)/\(queryType.rawValue)?\(queryParameters)apikey=\(apiKey)"
     }
 }

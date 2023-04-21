@@ -4,16 +4,17 @@ struct Preferences: View {
     @EnvironmentObject var dataStore: DataStore
     
     var body: some View {
-        VStack {
-            HStack {
+        ScrollView {
+            HStack{
                 VStack {
                     Text("Preferences")
                         .font(.title)
                         .bold()
+                        .padding(10)
                     Text("0 indicates no preference, 100 indicates high sensitivity")
                         .font(.subheadline)
                         .multilineTextAlignment(.center)
-                }.padding(.bottom, 50)
+                }.padding(.bottom, 30)
             }
             
             ForEach($dataStore.preferences, id: \.id) { $slider in

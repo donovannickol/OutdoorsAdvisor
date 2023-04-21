@@ -7,6 +7,7 @@ struct TabContainer: View {
 //
     @EnvironmentObject var openWeatherLoader: OpenWeatherLoader
     @EnvironmentObject var tomorrowIOLoader: TomorrowIOLoader
+    @EnvironmentObject var pollenLoader: PollenLoader
     @State var currentWeatherCity: City?
     
     @Environment(\.scenePhase) private var scenePhase
@@ -18,6 +19,7 @@ struct TabContainer: View {
                 DetailView(city: City.getCityById(UserDefaults.standard.string(forKey: "defaultLocation") ?? "") ?? City.previewData[0])
                     .environmentObject(openWeatherLoader)
                     .environmentObject(tomorrowIOLoader)
+                    .environmentObject(pollenLoader)
                     .environmentObject(dataStore)
             }
             .tabItem {
@@ -41,6 +43,7 @@ struct TabContainer: View {
                 Locations()
                     .environmentObject(openWeatherLoader)
                     .environmentObject(tomorrowIOLoader)
+                    .environmentObject(pollenLoader)
                     .environmentObject(dataStore)
             }
             .tabItem {

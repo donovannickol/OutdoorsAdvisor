@@ -12,6 +12,7 @@ struct DetailView: View {
     // mock data for testing view, replace with API results later
     @EnvironmentObject var openWeatherLoader: OpenWeatherLoader
     @EnvironmentObject var tomorrowIOLoader: TomorrowIOLoader
+    @EnvironmentObject var pollenLoader: PollenLoader
     @EnvironmentObject var dataStore: DataStore
 
     var defaultLocation = UserDefaults.standard.string(forKey: "defaultLocation")
@@ -58,18 +59,26 @@ struct DetailView: View {
 //                        FactorAmount(label: factor.name, value: factor.value, total: factor.total)
 //                    }
                 }
+                switch pollenLoader.state {
+                case .idle: Color.clear
+                case .loading: ProgressView()
+                case .failed(let error): Text("Error \(error.localizedDescription)")
+                case .success(let pollenSummary):
+                    let totalPollen = pollenSummary.pollenGrass + pollenSummary.pollenTree
+                    FactorAmount(label: "Pollen", value: Double(totalPollen), total: 10)
+                }
+                
                 var temp: Double = 0
                 switch openWeatherLoader.state {
                 case .idle: Color.clear
                 case .loading: ProgressView()
                 case .failed(let error): Text("Error \(error.localizedDescription)")
                 case .success(let airData):
-                    
-                    
                     FactorAmount(label: "Air Quality", value: airData.airQualityIndex, total: 5).onAppear(perform: {
                         temp = airData.airQualityIndex
                     })
                 }
+                
                 switch tomorrowIOLoader.state {
                 case .idle: Color.clear
                 case .loading: ProgressView()
@@ -95,6 +104,7 @@ struct DetailView: View {
             }
             .task { await tomorrowIOLoader.loadWeatherConditions(city: city) }
             .task { await openWeatherLoader.loadAirData(city: city) }
+            .task { await pollenLoader.loadPollen(city: city)}
         }
     }
 }

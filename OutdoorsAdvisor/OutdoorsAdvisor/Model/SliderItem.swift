@@ -26,6 +26,7 @@ extension SliderItem {
         SliderItem(sliderName: "UV", sliderValue: 50),
         SliderItem(sliderName: "Humidity", sliderValue: 50),
         SliderItem(sliderName: "Wind", sliderValue: 50),
-        SliderItem(sliderName: "Air Quality", sliderValue: 50)
+        SliderItem(sliderName: "Air Quality", sliderValue: 50),
+        SliderItem(sliderName: "Pollen", sliderValue: 50)
     ]
 }

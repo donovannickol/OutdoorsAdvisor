@@ -11,6 +11,8 @@
 		3552B25729E91AFC00CA3608 /* TomorrowIOAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3552B25629E91AFC00CA3608 /* TomorrowIOAPIClient.swift */; };
 		3552B25929E91BF600CA3608 /* WeatherConditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3552B25829E91BF600CA3608 /* WeatherConditions.swift */; };
 		3552B25B29E921CF00CA3608 /* TomorrowIOLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3552B25A29E921CF00CA3608 /* TomorrowIOLoader.swift */; };
+		35B1A81D29F2D96400893831 /* PollenLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35B1A81C29F2D96400893831 /* PollenLoader.swift */; };
+		35B1A81F29F2D9C100893831 /* PollenData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35B1A81E29F2D9C100893831 /* PollenData.swift */; };
 		35B42E0029DA6D26002639BE /* TabContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35B42DFF29DA6D26002639BE /* TabContainer.swift */; };
 		38410BAD29D28642008A6082 /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38410BAC29D28642008A6082 /* Preferences.swift */; };
 		38B22D2029DF957A00721751 /* DataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38B22D1F29DF957A00721751 /* DataStore.swift */; };
@@ -38,6 +40,8 @@
 		3552B25629E91AFC00CA3608 /* TomorrowIOAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TomorrowIOAPIClient.swift; sourceTree = "<group>"; };
 		3552B25829E91BF600CA3608 /* WeatherConditions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherConditions.swift; sourceTree = "<group>"; };
 		3552B25A29E921CF00CA3608 /* TomorrowIOLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TomorrowIOLoader.swift; sourceTree = "<group>"; };
+		35B1A81C29F2D96400893831 /* PollenLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PollenLoader.swift; sourceTree = "<group>"; };
+		35B1A81E29F2D9C100893831 /* PollenData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PollenData.swift; sourceTree = "<group>"; };
 		35B42DFF29DA6D26002639BE /* TabContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabContainer.swift; sourceTree = "<group>"; };
 		38410BAC29D28642008A6082 /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
 		38B22D1F29DF957A00721751 /* DataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStore.swift; sourceTree = "<group>"; };
@@ -156,10 +160,11 @@
 		3F21AE3E29DDF82B00DF9626 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				3552B25829E91BF600CA3608 /* WeatherConditions.swift */,
+				35B1A81E29F2D9C100893831 /* PollenData.swift */,
 				3F21AE3F29DDF85A00DF9626 /* AirPollution.swift */,
 				3F21AE4D29DE020500DF9626 /* City.swift */,
 				38B22D2129DF95E900721751 /* SliderItem.swift */,
-				3552B25829E91BF600CA3608 /* WeatherConditions.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -178,6 +183,7 @@
 			children = (
 				3F21AE4B29DDFCF300DF9626 /* OpenWeatherLoader.swift */,
 				3552B25A29E921CF00CA3608 /* TomorrowIOLoader.swift */,
+				35B1A81C29F2D96400893831 /* PollenLoader.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -260,11 +266,13 @@
 				3F21AE4C29DDFCF300DF9626 /* OpenWeatherLoader.swift in Sources */,
 				38B22D2629DFBC2200721751 /* CityForm.swift in Sources */,
 				3F21AE4629DDFB2000DF9626 /* APIError.swift in Sources */,
+				35B1A81D29F2D96400893831 /* PollenLoader.swift in Sources */,
 				3F21AE3B29DDF47900DF9626 /* OpenWeatherEndpoint.swift in Sources */,
 				38B22D2029DF957A00721751 /* DataStore.swift in Sources */,
 				38F2E53129DA082900DC0783 /* Locations.swift in Sources */,
 				3552B25529E91AE800CA3608 /* TomorrowIOAPIEndpoint.swift in Sources */,
 				38B22D2A29DFC36A00721751 /* CLLocationCoordinate2D.swift in Sources */,
+				35B1A81F29F2D9C100893831 /* PollenData.swift in Sources */,
 				38E058BA29CB48C900F5BC6F /* OutdoorsAdvisorApp.swift in Sources */,
 				38410BAD29D28642008A6082 /* Preferences.swift in Sources */,
 				38F2E52D29D9F71900DC0783 /* DetailView.swift in Sources */,
