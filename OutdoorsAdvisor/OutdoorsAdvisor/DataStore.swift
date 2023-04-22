@@ -3,6 +3,7 @@ import Foundation
 class DataStore: ObservableObject {
     @Published var preferences: [SliderItem] = SliderItem.previewData
     @Published var cities: [City] = City.previewData
+    @Published var defaultLocation: String? = UserDefaults.standard.string(forKey: "defaultLocation")
     
     func createCity(_ city: City) {
         cities.append(city)
@@ -12,6 +13,10 @@ class DataStore: ObservableObject {
         if let index = cities.firstIndex(where: { $0.id == city.id }) {
           cities.remove(at: index)
         }
+    }
+    
+    func getDefaultCity() -> City? {
+        return cities.first(where: { $0.id == defaultLocation })
     }
     
     private static func fileURL() throws -> URL {

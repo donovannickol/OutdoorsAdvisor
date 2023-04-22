@@ -43,6 +43,7 @@ struct Locations: View {
                     NavigationLink(destination: DetailView(city: location)
                         .environmentObject(openWeatherLoader).environmentObject(tomorrowIOLoader).environmentObject(pollenLoader).environmentObject(dataStore)) {
                         LocationItem(location: location, value: 60)
+                                .environmentObject(dataStore)
                     }
                         .swipeActions(edge: .trailing) {
                             Button(role: .destructive) {
@@ -77,6 +78,7 @@ struct SearchBar: View {
 }
 
 struct LocationItem: View {
+    @EnvironmentObject var dataStore: DataStore
     var location: City
     var value: Double
     
@@ -85,7 +87,7 @@ struct LocationItem: View {
             Text(location.name)
                 .font(.headline)
                 .padding(.leading)
-            if location.id == UserDefaults.standard.string(forKey: "defaultLocation") {
+            if location.id == dataStore.defaultLocation {
                 Image(systemName: "star.fill")
                     .foregroundColor(.yellow)
             }

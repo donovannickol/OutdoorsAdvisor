@@ -31,9 +31,6 @@ struct City: Identifiable, Codable {
         CLLocationCoordinate2D(latitude: self.latitude, longitude: self.longitude)
     }
     
-    static func getCityById(_ id: String) -> City? {
-        return City.previewData.first(where: { $0.id == id })
-    }
     static func cityEnjoyment(weather: WeatherDataValues, air: Double, pollen: Double, preferences: [SliderItem]) -> Double{
         var value = preferences[0].sliderValue * (120 - abs(weather.temperature - 70)) + preferences[1].sliderValue * (100 - weather.rainProbability)
         value += preferences[2].sliderValue  * (11 - Double(weather.uvIndex))

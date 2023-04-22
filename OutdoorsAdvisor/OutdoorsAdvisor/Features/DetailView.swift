@@ -14,28 +14,14 @@ struct DetailView: View {
     @EnvironmentObject var pollenLoader: PollenLoader
     @EnvironmentObject var dataStore: DataStore
     
-    var defaultLocation = UserDefaults.standard.string(forKey: "defaultLocation")
     var isDefaultLocation: Bool {
-        defaultLocation == city.id
+        dataStore.defaultLocation == city.id
     }
     var city: City
     @State var progressValue: Double = 60
     
     var body: some View {
         VStack(alignment: .trailing) {
-            Button(action: {
-                UserDefaults.standard.set(city.id, forKey: "defaultLocation")
-            }) {
-                Text(self.isDefaultLocation ? "Default Location" : "Set Default")
-                    .padding(.horizontal, 10)
-                    .padding(.vertical, 5)
-                    .background(self.isDefaultLocation ? Color.green : Color.blue)
-                    .foregroundColor(Color.white)
-                    .cornerRadius(5)
-            }
-            .padding(.top, 20)
-            .padding(.trailing, 20)
-            
             ScrollView {
                 Text(city.name)
                     .font(.title)
@@ -98,6 +84,14 @@ struct DetailView: View {
             .task { await tomorrowIOLoader.loadWeatherConditions(city: city) }
             .task { await openWeatherLoader.loadAirData(city: city) }
             .task { await pollenLoader.loadPollen(city: city)}
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button(self.isDefaultLocation ? "Default Location" : "Set Default") {
+                        UserDefaults.standard.set(city.id, forKey: "defaultLocation")
+                        dataStore.defaultLocation = city.id
+                    }
+                }
+            }
         }
     }
 }

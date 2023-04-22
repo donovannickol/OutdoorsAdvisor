@@ -13,7 +13,7 @@ struct TabContainer: View {
     var body: some View {
         TabView{
             NavigationView {
-                DetailView(city: City.getCityById(UserDefaults.standard.string(forKey: "defaultLocation") ?? "") ?? City.previewData[0])
+                DetailView(city: dataStore.getDefaultCity() ?? City.previewData[0])
                     .environmentObject(openWeatherLoader)
                     .environmentObject(tomorrowIOLoader)
                     .environmentObject(pollenLoader)
