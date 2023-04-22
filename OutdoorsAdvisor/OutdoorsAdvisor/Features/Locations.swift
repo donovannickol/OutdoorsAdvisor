@@ -2,7 +2,6 @@ import SwiftUI
 
 struct Locations: View {
     @EnvironmentObject var dataStore: DataStore
-//    @StateObject var openWeatherLoader = OpenWeatherLoader(apiClient: OpenWeatherAPIClient())
     @EnvironmentObject var openWeatherLoader: OpenWeatherLoader
     @EnvironmentObject var tomorrowIOLoader: TomorrowIOLoader
     @EnvironmentObject var pollenLoader: PollenLoader

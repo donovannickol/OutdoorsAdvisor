@@ -2,9 +2,6 @@ import SwiftUI
 
 struct TabContainer: View {
     @EnvironmentObject var dataStore: DataStore
-//    @StateObject var openWeatherLoader = OpenWeatherLoader(apiClient: OpenWeatherAPIClient())
-//    @StateObject var tomorrowIOLoader = TomorrowIOLoader(apiClient: TomorrowIOAPIClient())
-//
     @EnvironmentObject var openWeatherLoader: OpenWeatherLoader
     @EnvironmentObject var tomorrowIOLoader: TomorrowIOLoader
     @EnvironmentObject var pollenLoader: PollenLoader
@@ -24,20 +21,6 @@ struct TabContainer: View {
             }
             .tabItem {
                 Label("Home", systemImage: "cloud.sun.rain")
-            }
-//            NavigationView {
-//                DetailView(city: City.previewData[0])
-//                    .environmentObject(forecastLoader)
-//                    .environmentObject(currentConditionsLoader)
-//            }
-//            .tabItem {
-//                Label("Details", systemImage: "book")
-//            }
-            NavigationView {
-                //Map
-            }
-            .tabItem {
-                Label("Map", systemImage: "map")
             }
             NavigationView {
                 Locations()
@@ -66,7 +49,7 @@ struct TabContainer: View {
 struct TabContainer_Previews: PreviewProvider {
     static var previews: some View {
         TabContainer() {}
-            .environmentObject(DataStore())
+            .environmentObject(DataStore()).environmentObject(OpenWeatherLoader(apiClient: MockWeatherAPIClient())).environmentObject(TomorrowIOLoader(apiClient: MockTomorrowIOAPIClient())).environmentObject(PollenLoader(apiClient: MockTomorrowIOAPIClient()))
     }
 }
 

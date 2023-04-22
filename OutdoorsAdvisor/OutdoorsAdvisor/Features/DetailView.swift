@@ -9,26 +9,17 @@ struct Factor : Identifiable {
 
 
 struct DetailView: View {
-    // mock data for testing view, replace with API results later
     @EnvironmentObject var openWeatherLoader: OpenWeatherLoader
     @EnvironmentObject var tomorrowIOLoader: TomorrowIOLoader
     @EnvironmentObject var pollenLoader: PollenLoader
     @EnvironmentObject var dataStore: DataStore
-
+    
     var defaultLocation = UserDefaults.standard.string(forKey: "defaultLocation")
     var isDefaultLocation: Bool {
         defaultLocation == city.id
     }
-//    @State var isDefaultLocation: Bool = false
     var city: City
     @State var progressValue: Double = 60
-//    var factors: [Factor] = [
-//        Factor(name: "Temperature", value: 50, total: 100),
-//        Factor(name: "Air Quality", value: 43, total: 500),
-//        Factor(name: "Pollen", value: 77, total: 100),
-//        Factor(name: "UV", value: 12, total: 11), // 11+ is considered extreme
-//        Factor(name: "Precipitation", value: 37, total: 100)
-//    ]
     
     var body: some View {
         VStack(alignment: .trailing) {
@@ -56,10 +47,7 @@ struct DetailView: View {
                         .frame(width: 150.0, height: 150.0)
                         .padding(.bottom, 40.0)
                         .padding(.top, 20.0)
-                    
-//                    ForEach(factors, id: \.id) { factor in
-//                        FactorAmount(label: factor.name, value: factor.value, total: factor.total)
-//                    }
+                        .padding(.top, 20.0)
                 }
                 var tempPollen: Double = 0
                 switch pollenLoader.state {
@@ -69,7 +57,7 @@ struct DetailView: View {
                 case .success(let pollenSummary):
                     let totalPollen = pollenSummary.pollenGrass + pollenSummary.pollenTree
                     FactorAmount(label: "Pollen", value: Double(totalPollen), total: 10).onAppear(perform: {
-                        tempPollen = Double(pollenSummary.pollenTree)
+                        tempPollen = Double(totalPollen)
                     })
                 }
                 
@@ -152,6 +140,16 @@ struct FactorAmount: View {
     var label: String
     var value: Double
     var total: Double
+    var recommendationMap = [
+        "Pollen": "🐝 Take allergy medicine before going outside!",
+        "Air Quality": "😷 Wear a mask when outside!",
+        "Temperature": "🌡️ Bring a water bottle and dress light!",
+        "Chance of Precipitation": "☔️ Bring an umbrella!",
+        "UV Index": "☀️ Wear sunscreen!"
+    ]
+    
+    
+    
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -159,6 +157,11 @@ struct FactorAmount: View {
             ProgressView(value: value, total: total)
                 .scaleEffect(x: 1, y: 5, anchor: .center)
                 .accentColor(percentToColorFactor(progress: value / total * 100))
+            if let recommendation = recommendationMap[label] {
+                if value / total > 0.75 {
+                    Text(recommendation)
+                }
+            }
         }
         .padding(.horizontal, 20)
         .padding(.vertical, 10)
@@ -174,7 +177,6 @@ struct WeatherDisplay: View {
       Text(city.name).font(.largeTitle)
       Text("Current Conditions".uppercased())
         .font(.caption)
-      //Text(currentConditions.description)
       Text(currentTemperature(currentWeatherConditions))
     }
     .padding(20)
